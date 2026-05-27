@@ -851,6 +851,47 @@ textarea {
   animation: sparkle-twinkle 2.4s ease-in-out infinite alternate;
 }
 
+.scroll-stars {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.22;
+  transition: opacity 0.12s linear, transform 0.12s linear;
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,.95) 0 1px, transparent 2px),
+    radial-gradient(circle, rgba(216,199,163,.85) 0 1.3px, transparent 2.6px),
+    radial-gradient(circle, rgba(159,185,195,.55) 0 1px, transparent 2.4px);
+  background-size:
+    160px 160px,
+    240px 240px,
+    320px 320px;
+  background-position:
+    40px 60px,
+    140px 180px,
+    260px 100px;
+  animation: star-drift 14s linear infinite;
+}
+
+.scroll-stars::before,
+.scroll-stars::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-repeat: repeat;
+  pointer-events: none;
+}
+
+.scroll-stars::before {
+  background-image:
+    linear-gradient(transparent 47%, rgba(255,255,255,.9) 49%, rgba(255,255,255,.9) 51%, transparent 53%),
+    linear-gradient(90deg, transparent 47%, rgba(255,255,255,.9) 49%, rgba(255,255,255,.9) 51%, transparent 53%);
+  background-size: 220px 220px;
+  background-position: 90px 120px;
+  opacity: 0.22;
+  animation: sparkle-twinkle 2.4s ease-in-out infinite alternate;
+}
+
 .scroll-stars::after {
   background-image:
     linear-gradient(transparent 48%, rgba(216,199,163,.75) 49.5%, rgba(216,199,163,.75) 50.5%, transparent 52%),
@@ -889,8 +930,7 @@ textarea {
   to {
     transform: translateY(-80px);
   }
-}
-  .hero,
+}  .hero,
   .projects-panel,
   .credibility,
   .process,
