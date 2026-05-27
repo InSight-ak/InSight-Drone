@@ -574,4 +574,19 @@ textarea {
   color: white;
   font-size: 34px;
   cursor: pointer;
+}.about-panel {
+  padding: 48px;
+}
+
+.about-copy {
+  display: grid;
+  gap: 18px;
+  max-width: 900px;
+}
+
+.about-copy p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 18px;
+  line-height: 1.8;
 }

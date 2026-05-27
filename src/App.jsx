@@ -117,12 +117,49 @@ export default function App() {
           </a>
 
           <nav className="nav-links">
-            <a href="#services">Services</a>
-            <a href="#projects">Projects</a>
-            <a href="#credibility">Credibility</a>
-            <a href="#work">Work</a>
-            <a href="#contact">Contact</a>
-          </nav>
+  <a href="#services">Services</a>
+  <a href="#about">About</a>
+  <a href="#projects">Projects</a>
+  <a href="#credibility">Credibility</a>
+  <a href="#work">Work</a>
+  <a href="#contact">Contact</a>
+</nav> <section id="about" className="section">
+  <PremiumGlass className="about-panel">
+    <div className="section-heading">
+      <p>About Me</p>
+      <h2>Built from aviation, photography, and self-driven work.</h2>
+    </div>
+
+    <div className="about-copy">
+      <p>
+        I grew up around aviation and photography, which naturally shaped the
+        way I see the world today. My dad worked as a pilot, and from an early
+        age I was exposed to aviation, weather, navigation, and the unique
+        perspective that comes from seeing landscapes from above.
+      </p>
+
+      <p>
+        At the same time, my mom’s background in photography introduced me to
+        composition, lighting, storytelling, and the importance of capturing
+        moments in a meaningful way. Those influences eventually came together
+        through drone work.
+      </p>
+
+      <p>
+        I’m also a homeschooled student currently taking college courses at 16
+        years old, which has pushed me to become self-driven and independent.
+        Homeschooling taught me how to manage my own schedule, stay disciplined,
+        solve problems, and work toward long-term goals.
+      </p>
+
+      <p>
+        My focus is simple: create professional aerial media with attention to
+        detail, strong communication, and a genuine passion for both aviation
+        and photography.
+      </p>
+    </div>
+  </PremiumGlass>
+</section>
 
           <a href="#contact" className="nav-cta">
             Get a Quote
@@ -186,8 +223,8 @@ export default function App() {
             </PremiumGlass>
           </div>
         </section>
-
-        <section id="services" className="section">
+      
+  <section id="services" className="section">
           <div className="section-heading center">
             <p>Services</p>
             <h2>Aerial media without the overdone sales pitch.</h2>
