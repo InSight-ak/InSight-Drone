@@ -759,14 +759,23 @@ textarea {
 
 .scroll-drone {
   position: fixed;
-  top: 20%;
-  left: -140px;
   width: 110px;
   height: 110px;
   z-index: 9999;
   pointer-events: none;
   transition: transform 0.08s linear;
   filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.45));
+}
+
+.drone-one {
+  top: 20%;
+  left: -140px;
+}
+
+.drone-two {
+  top: -120px;
+  right: -120px;
+  opacity: 0.65;
 }
 
 .scroll-drone::before {
@@ -777,9 +786,54 @@ textarea {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  opacity: 0.95;
 }
-@media (max-width: 980px) {
+
+.scroll-drone::after {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  background:
+    radial-gradient(circle at 22% 22%, rgba(216,199,163,.9) 0 3px, transparent 4px),
+    radial-gradient(circle at 78% 22%, rgba(216,199,163,.9) 0 3px, transparent 4px),
+    radial-gradient(circle at 22% 78%, rgba(216,199,163,.9) 0 3px, transparent 4px),
+    radial-gradient(circle at 78% 78%, rgba(216,199,163,.9) 0 3px, transparent 4px);
+  animation: prop-spin 0.38s linear infinite;
+  opacity: 0.8;
+}
+
+@keyframes prop-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.scroll-stars {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.08;
+  transition: opacity 0.12s linear, transform 0.12s linear;
+  background-image:
+    radial-gradient(circle, rgba(216,199,163,.5) 0 1px, transparent 2px),
+    radial-gradient(circle, rgba(159,185,195,.35) 0 1px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,.25) 0 1px, transparent 2px);
+  background-size: 180px 180px, 260px 260px, 340px 340px;
+  background-position: 20px 40px, 80px 120px, 160px 80px;
+  animation: star-twinkle 2.8s ease-in-out infinite alternate;
+}
+
+@keyframes star-twinkle {
+  from {
+    filter: brightness(0.65);
+  }
+  to {
+    filter: brightness(1.3);
+  }
+}@media (max-width: 980px) {
   .nav-links {
     display: none;
   }

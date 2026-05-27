@@ -49,29 +49,45 @@ function ImagePanel({ item, className = "" }) {
 
 export default function App() {
   React.useEffect(() => {
-    const drone = document.getElementById("scrollDrone");
+  const droneOne = document.getElementById("scrollDroneOne");
+  const droneTwo = document.getElementById("scrollDroneTwo");
+  const stars = document.getElementById("scrollStars");
 
-    const moveDrone = () => {
-      if (!drone) return;
+  const moveEffects = () => {
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
 
-      const maxScroll = document.body.scrollHeight - window.innerHeight;
-      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-
-      const x = progress * (window.innerWidth - 120);
+    if (droneOne) {
+      const x = progress * (window.innerWidth + 220) - 140;
       const y = Math.sin(progress * 8) * 40;
+      droneOne.style.transform =
+        `translate(${x}px, ${y}px) rotate(${progress * 360}deg)`;
+    }
 
-      drone.style.transform = `translate(${x}px, ${y}px) rotate(${progress * 720}deg)`;
-    };
+    if (droneTwo) {
+      const x = -progress * (window.innerWidth + 260);
+      const y = progress * (window.innerHeight + 260);
+      droneTwo.style.transform =
+        `translate(${x}px, ${y}px) rotate(${-progress * 420}deg) scale(.82)`;
+    }
 
-    window.addEventListener("scroll", moveDrone);
-    moveDrone();
+    if (stars) {
+      stars.style.opacity = `${0.08 + progress * 0.18}`;
+      stars.style.transform = `translateY(${-progress * 80}px)`;
+    }
+  };
 
-    return () => window.removeEventListener("scroll", moveDrone);
-  }, []);
+  window.addEventListener("scroll", moveEffects);
+  moveEffects();
+
+  return () => window.removeEventListener("scroll", moveEffects);
+}, []);
 
   return (
     <div className="site">
-      <div className="scroll-drone" id="scrollDrone">✦</div>
+     <div className="scroll-stars" id="scrollStars"></div>
+<div className="scroll-drone drone-one" id="scrollDroneOne"></div>
+<div className="scroll-drone drone-two" id="scrollDroneTwo"></div>
       <div className="background-grid" />
       <div className="orb orb-one" />
       <div className="orb orb-two" />
