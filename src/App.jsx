@@ -137,8 +137,23 @@ export default function App() {
   return (
     <div className="site">
       <div className="scroll-stars" />
-      <div className="scroll-drone drone-one" id="scrollDroneOne" />
-      <div className="scroll-drone drone-two" id="scrollDroneTwo" />
+      <a
+  href="https://www.djiusa.com/products/dji-air-3s-rcn3?utm_source=google&utm_medium=cpc&utm_campaign=search_air3s&utm_content=806315263591&utm_term=23716594697_195569500312_806315263591&gad_source=1&gad_campaignid=23716594697&gclid=CjwKCAjwrNrQBhBjEiwAoR4VO-ih7ro5l-83zGE20Hw1Mg5E7l7EUGTC47Zl74Fu8bmPL3GV1MW_lRoC3w0QAvD_BwE"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="scroll-drone drone-one"
+  id="scrollDroneOne"
+  aria-label="DJI Air 3S"
+></a>
+
+<a
+  href="https://www.djiusa.com/products/dji-air-3s-rcn3?utm_source=google&utm_medium=cpc&utm_campaign=search_air3s&utm_content=806315263591&utm_term=23716594697_195569500312_806315263591&gad_source=1&gad_campaignid=23716594697&gclid=CjwKCAjwrNrQBhBjEiwAoR4VO-ih7ro5l-83zGE20Hw1Mg5E7l7EUGTC47Zl74Fu8bmPL3GV1MW_lRoC3w0QAvD_BwE"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="scroll-drone drone-two"
+  id="scrollDroneTwo"
+  aria-label="DJI Air 3S"
+></a>
       <div className="orb orb-one" />
       <div className="orb orb-two" />
       <div className="orb orb-three" />

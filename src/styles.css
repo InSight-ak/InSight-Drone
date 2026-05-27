@@ -54,7 +54,8 @@ button {
   z-index: 0;
   border-radius: 999px;
   filter: blur(78px);
-  pointer-events: none;
+  pointer-events: auto;
+cursor: pointer;
 }
 
 .orb-one {
