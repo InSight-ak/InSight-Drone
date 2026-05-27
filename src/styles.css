@@ -85,7 +85,7 @@ textarea {
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 50;
+  z-index: 80;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(8, 11, 16, 0.72);
   backdrop-filter: blur(24px);
@@ -94,7 +94,7 @@ textarea {
 .nav-wrap,
 .section {
   position: relative;
-  z-index: 1;
+  z-index: 10;
   width: min(1180px, calc(100% - 40px));
   margin: 0 auto;
 }
@@ -746,7 +746,7 @@ textarea {
 
 .footer {
   position: relative;
-  z-index: 2;
+  z-index: 20;
   padding: 34px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(8, 11, 16, 0.72);
@@ -764,7 +764,9 @@ textarea {
   z-index: 9999;
   pointer-events: none;
   transition: transform 0.08s linear;
-  filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.45));
+  filter:
+    drop-shadow(0 16px 36px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 18px rgba(216, 199, 163, 0.18));
 }
 
 .drone-one {
@@ -813,23 +815,10 @@ textarea {
 .scroll-stars {
   position: fixed;
   inset: 0;
-  z-index: 5;
+  z-index: 40;
   pointer-events: none;
-  opacity: 0.22;
+  opacity: 0.75;
   transition: opacity 0.12s linear, transform 0.12s linear;
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,.95) 0 1px, transparent 2px),
-    radial-gradient(circle, rgba(216,199,163,.85) 0 1.3px, transparent 2.6px),
-    radial-gradient(circle, rgba(159,185,195,.55) 0 1px, transparent 2.4px);
-  background-size:
-    160px 160px,
-    240px 240px,
-    320px 320px;
-  background-position:
-    40px 60px,
-    140px 180px,
-    260px 100px;
-  animation: star-drift 14s linear infinite;
 }
 
 .scroll-stars::before,
@@ -837,127 +826,67 @@ textarea {
   content: "";
   position: absolute;
   inset: 0;
-  background-repeat: repeat;
   pointer-events: none;
 }
 
 .scroll-stars::before {
-  background-image:
-    linear-gradient(transparent 47%, rgba(255,255,255,.9) 49%, rgba(255,255,255,.9) 51%, transparent 53%),
-    linear-gradient(90deg, transparent 47%, rgba(255,255,255,.9) 49%, rgba(255,255,255,.9) 51%, transparent 53%);
-  background-size: 220px 220px;
-  background-position: 90px 120px;
-  opacity: 0.22;
-  animation: sparkle-twinkle 2.4s ease-in-out infinite alternate;
-}
-
-.scroll-stars {
-  position: fixed;
-  inset: 0;
-  z-index: 5;
-  pointer-events: none;
-  opacity: 0.22;
-  transition: opacity 0.12s linear, transform 0.12s linear;
-  background-image:
-    radial-gradient(circle, rgba(255,255,255,.95) 0 1px, transparent 2px),
-    radial-gradient(circle, rgba(216,199,163,.85) 0 1.3px, transparent 2.6px),
-    radial-gradient(circle, rgba(159,185,195,.55) 0 1px, transparent 2.4px);
-  background-size:
-    160px 160px,
-    240px 240px,
-    320px 320px;
-  background-position:
-    40px 60px,
-    140px 180px,
-    260px 100px;
-  animation: star-drift 14s linear infinite;
-}
-
-.scroll-stars::before,
-.scroll-stars::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-repeat: repeat;
-  pointer-events: none;
-}
-
-.scroll-stars {
-  position: fixed;
-  inset: 0;
-  z-index: 25;
-  pointer-events: none;
-  opacity: 0.85;
-  transition: opacity 0.12s linear, transform 0.12s linear;
-  background-image:
-    radial-gradient(circle at 8% 14%, white 0 2.5px, transparent 4px),
-    radial-gradient(circle at 22% 71%, #d8c7a3 0 2.2px, transparent 4px),
-    radial-gradient(circle at 41% 29%, white 0 2px, transparent 4px),
-    radial-gradient(circle at 66% 18%, #9fb9c3 0 2.5px, transparent 4px),
-    radial-gradient(circle at 82% 63%, white 0 2.8px, transparent 4.5px),
-    radial-gradient(circle at 12% 89%, #d8c7a3 0 2px, transparent 4px),
-    radial-gradient(circle at 55% 78%, white 0 2.4px, transparent 4px),
-    radial-gradient(circle at 93% 32%, #d8c7a3 0 2.2px, transparent 4px);
-  animation: star-pulse 1.8s ease-in-out infinite alternate;
-}
-
-.scroll-stars::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(transparent 47%, white 50%, transparent 53%),
-    linear-gradient(90deg, transparent 47%, white 50%, transparent 53%),
-    linear-gradient(transparent 47%, #d8c7a3 50%, transparent 53%),
-    linear-gradient(90deg, transparent 47%, #d8c7a3 50%, transparent 53%);
-  background-size:
-    190px 190px,
-    190px 190px,
-    330px 330px,
-    330px 330px;
-  background-position:
-    47px 91px,
-    47px 91px,
-    233px 141px,
-    233px 141px;
-  opacity: 0.7;
-  animation: sparkle-pop 1.4s ease-in-out infinite alternate;
+  background:
+    radial-gradient(circle at 8% 12%, white 0 2px, transparent 4px),
+    radial-gradient(circle at 22% 68%, #d8c7a3 0 2px, transparent 4px),
+    radial-gradient(circle at 37% 24%, white 0 2px, transparent 4px),
+    radial-gradient(circle at 58% 15%, white 0 2.5px, transparent 5px),
+    radial-gradient(circle at 74% 44%, #d8c7a3 0 2px, transparent 4px),
+    radial-gradient(circle at 88% 26%, white 0 2px, transparent 4px),
+    radial-gradient(circle at 14% 86%, #d8c7a3 0 2px, transparent 4px),
+    radial-gradient(circle at 63% 79%, white 0 2px, transparent 4px);
+  animation: starFloat 18s linear infinite;
 }
 
 .scroll-stars::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(transparent 46%, white 50%, transparent 54%),
-    linear-gradient(90deg, transparent 46%, white 50%, transparent 54%);
-  background-size: 450px 450px;
-  background-position: 310px 220px;
-  opacity: 0.55;
-  animation: sparkle-pop 2.1s ease-in-out infinite alternate-reverse;
+  background:
+    linear-gradient(transparent 48%, white 50%, transparent 52%),
+    linear-gradient(90deg, transparent 48%, white 50%, transparent 52%),
+    linear-gradient(transparent 48%, #d8c7a3 50%, transparent 52%),
+    linear-gradient(90deg, transparent 48%, #d8c7a3 50%, transparent 52%);
+  background-size: 220px 220px, 220px 220px, 340px 340px, 340px 340px;
+  background-position: 120px 90px, 120px 90px, 540px 260px, 540px 260px;
+  opacity: 0.9;
+  animation: sparkleTwinkle 2.2s ease-in-out infinite alternate;
 }
 
-@keyframes star-pulse {
-  from {
-    opacity: 0.6;
+@keyframes sparkleTwinkle {
+  0% {
+    opacity: 0.25;
+    transform: scale(0.92);
+    filter: brightness(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.15);
+    filter: brightness(2);
+  }
+  100% {
+    opacity: 0.45;
+    transform: scale(1);
     filter: brightness(1);
   }
+}
+
+@keyframes starFloat {
+  from {
+    transform: translateY(0px);
+  }
   to {
-    opacity: 1;
-    filter: brightness(2.2);
+    transform: translateY(-120px);
   }
 }
 
-@keyframes sparkle-pop {
-  from {
-    opacity: 0.35;
-    transform: scale(0.95);
+@media (max-width: 980px) {
+  .nav-links {
+    display: none;
   }
-  to {
-    opacity: 0.9;
-    transform: scale(1.12);
-  }
-}}  .hero,
+
+  .hero,
   .projects-panel,
   .credibility,
   .process,
@@ -1069,5 +998,9 @@ textarea {
 
   .scroll-drone {
     display: none;
+  }
+
+  .scroll-stars {
+    opacity: 0.35;
   }
 }
