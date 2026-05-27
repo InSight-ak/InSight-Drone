@@ -155,16 +155,14 @@ export default function App() {
                 <p><Mail /> <a href="mailto:hello@insightdroneflights.com">hello@insightdroneflights.com</a></p><p><Phone /> Add your phone number here</p><p><MapPin /> Serving Alaska</p><p><ShieldCheck /> FAA Part 107 Certified</p>
               </div>
             </div>
-            <form className="contact-form">
-              <input placeholder="Name" /><input placeholder="Email" /><input placeholder="Project location" />
-              <textarea placeholder="What do you need filmed or photographed?" />
-             <a
-  className="form-submit"
-  href="mailto:hello@insightdroneflights.com?subject=Drone%20Project%20Request&body=Name:%0AEmail:%0ALocation:%0AProject%20details:"
->
-  Send Request
-</a>
-            </form>
+           <div className="contact-form">
+  <a
+    className="form-submit"
+    href="mailto:hello@insightdroneflights.com?subject=Drone%20Project%20Request"
+  >
+    Email InSight Drone Flights
+  </a>
+</div>
           </PremiumGlass>
         </section>
       </main>
