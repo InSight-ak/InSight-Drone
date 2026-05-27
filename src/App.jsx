@@ -155,16 +155,22 @@ export default function App() {
                 <p><Mail /> <a href="mailto:hello@insightdroneflights.com">hello@insightdroneflights.com</a></p><p><Phone /> Add your phone number here</p><p><MapPin /> Serving Alaska</p><p><ShieldCheck /> FAA Part 107 Certified</p>
               </div>
             </div>
-           <div className="contact-form email-cta-box">
-  <a
-    className="form-submit"
-    href="mailto:hello@insightdroneflights.com?subject=Drone%20Project%20Request"
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    Email InSight Drone Flights
-  </a>
-</div>
+          <form
+  className="contact-form"
+  action="https://formspree.io/f/mvzyvlda"
+  method="POST"
+>
+  <input type="text" name="name" placeholder="Name" required />
+  <input type="email" name="email" placeholder="Email" required />
+  <input type="text" name="location" placeholder="Location" />
+  <textarea
+    name="message"
+    placeholder="Tell me about your project..."
+    required
+  ></textarea>
+
+  <button type="submit">Send Request</button>
+</form>
           </PremiumGlass>
         </section>
       </main>
