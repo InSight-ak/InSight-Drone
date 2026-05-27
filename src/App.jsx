@@ -2,12 +2,11 @@ import React from "react";
 import { ArrowRight, BadgeCheck, Building2, Camera, CheckCircle2, ClipboardCheck, FileCheck, Home, Mail, MapPin, Mountain, Phone, Plane, ShieldCheck, Sparkles, TreePine } from "lucide-react";
 
 const portfolio = [
-  { title: "Alaska Trail Aerial", tag: "Outdoor / Lifestyle", image: "/images/trail-aerial.jpg" },
-  { title: "Cook Inlet Sunset", tag: "Scenic / Landscape", image: "/images/cook-inlet-sunset.jpg" },
-  { title: "Sunset Over the Flats", tag: "Cinematic Aerial", image: "/images/sunset-flats.jpg" },
-  { title: "Golden Hour Coastline", tag: "Marketing Visual", image: "/images/golden-coastline.jpg" },
-  { title: "Neighborhood Aerial", tag: "Property Context", image: "/images/neighborhood-aerial.jpg" },
-  { title: "Mountain Sunset", tag: "Scenic Aerial", image: "/images/mountain-sunset.jpg" }
+  { title: "Alaska Mountain Views", tag: "Scenic Aerial", image: "/images/mountains.jpg" },
+  { title: "Moose Wildlife Capture", tag: "Wildlife", image: "/images/moose.jpg" },
+  { title: "Luxury Real Estate", tag: "Property Showcase", image: "/images/house-hero.jpg" },
+  { title: "Residential Listing", tag: "Real Estate", image: "/images/house-2.jpg" },
+  { title: "Sunset Over Alaska", tag: "Cinematic Aerial", image: "/images/sunset.jpg" }
 ];
 
 function GlassCard({ children, className = "" }) {
