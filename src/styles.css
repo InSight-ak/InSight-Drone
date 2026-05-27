@@ -589,4 +589,44 @@ textarea {
   color: #cbd5e1;
   font-size: 18px;
   line-height: 1.8;
+} .nav-link-button {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 850;
+}
+
+.about-page {
+  min-height: 720px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about-panel {
+  max-width: 850px;
+  padding: 52px;
+}
+
+.about-back {
+  margin-bottom: 28px;
+  border: 0;
+  background: transparent;
+  color: #d8c7a3;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.about-copy {
+  display: grid;
+  gap: 18px;
+}
+
+.about-copy p {
+  margin: 0;
+  color: #cbd5e1;
+  font-size: 18px;
+  line-height: 1.8;
 }
