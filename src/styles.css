@@ -857,21 +857,19 @@ textarea {
 @keyframes sparkleTwinkle {
   0% {
     opacity: 0.25;
-    transform: scale(0.92);
     filter: brightness(0.8);
   }
+
   50% {
-    opacity: 1;
-    transform: scale(1.15);
+    opacity: 0.9;
     filter: brightness(2);
   }
+
   100% {
     opacity: 0.45;
-    transform: scale(1);
     filter: brightness(1);
   }
 }
-
 @keyframes starFloat {
   from {
     transform: translateY(0px);
