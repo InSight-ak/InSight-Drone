@@ -871,4 +871,29 @@ textarea {
   .contact-panel {
     padding: 26px;
   }
+}.email-cta-box {
+  display: flex;
+  align-items: stretch;
+}
+
+.form-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 220px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(20,30,45,.95), rgba(35,45,65,.88));
+  border: 1px solid rgba(255,255,255,.1);
+  color: #fff;
+  font-size: 28px;
+  font-weight: 900;
+  text-align: center;
+  padding: 40px;
+  cursor: pointer;
+}
+
+.form-submit:hover {
+  transform: translateY(-4px);
+  border-color: rgba(216,199,163,.55);
 }

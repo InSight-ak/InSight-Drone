@@ -155,10 +155,12 @@ export default function App() {
                 <p><Mail /> <a href="mailto:hello@insightdroneflights.com">hello@insightdroneflights.com</a></p><p><Phone /> Add your phone number here</p><p><MapPin /> Serving Alaska</p><p><ShieldCheck /> FAA Part 107 Certified</p>
               </div>
             </div>
-           <div className="contact-form">
+           <div className="contact-form email-cta-box">
   <a
     className="form-submit"
     href="mailto:hello@insightdroneflights.com?subject=Drone%20Project%20Request"
+    target="_blank"
+    rel="noopener noreferrer"
   >
     Email InSight Drone Flights
   </a>
