@@ -58,7 +58,7 @@ export default function App() {
             </div>
           </div>
           <div className="hero-media">
-            <GlassCard className="hero-glass"><PhotoCard item={portfolio[2]} featured /></GlassCard>
+            <GlassCard className="hero-glass"><PhotoCard item={portfolio[0]} featured /></GlassCard>
             <div className="stats-row">
               <GlassCard><strong>4K</strong><span>Video Ready</span></GlassCard>
               <GlassCard><strong>Air 3S</strong><span>DJI Drone</span></GlassCard>
