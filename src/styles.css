@@ -934,6 +934,7 @@ cursor: pointer;
 
 .scroll-drone {
   position: fixed;
+  display: block;
   width: 110px;
   height: 110px;
   z-index: 9999;
