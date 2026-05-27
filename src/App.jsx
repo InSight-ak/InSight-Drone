@@ -30,7 +30,7 @@ function ImagePanel({ item, className = "" }) {
 
 export default function App() {
   return (
-    <div className="site">
+    <div className="scroll-drone">✦</div>
       <div className="background-grid" />
       <div className="orb orb-one" />
       <div className="orb orb-two" />
