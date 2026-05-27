@@ -88,7 +88,6 @@ export default function App() {
      <div className="scroll-stars" id="scrollStars"></div>
 <div className="scroll-drone drone-one" id="scrollDroneOne"></div>
 <div className="scroll-drone drone-two" id="scrollDroneTwo"></div>
-      <div className="background-grid" />
       <div className="orb orb-one" />
       <div className="orb orb-two" />
       <div className="orb orb-three" />
