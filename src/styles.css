@@ -937,13 +937,9 @@ cursor: pointer;
   width: 110px;
   height: 110px;
   z-index: 9999;
-  pointer-events: none;
-  transition: transform 0.08s linear;
-  filter:
-    drop-shadow(0 16px 36px rgba(0, 0, 0, 0.45))
-    drop-shadow(0 0 18px rgba(216, 199, 163, 0.18));
+  pointer-events: auto;
+  cursor: pointer;
 }
-
 .drone-one {
   top: 20%;
   left: -140px;
