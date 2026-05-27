@@ -26,6 +26,7 @@ textarea {
 
 .site {
   position: relative;
+  isolation: isolate;
   min-height: 100vh;
   overflow: hidden;
   background:
@@ -38,11 +39,11 @@ textarea {
 .background-grid {
   position: fixed;
   inset: 0;
-  z-index: 0;
-  opacity: 0.025;
+  z-index: -5;
+  opacity: 0.02;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.22) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.22) 1px, transparent 1px);
   background-size: 96px 96px;
   pointer-events: none;
 }
