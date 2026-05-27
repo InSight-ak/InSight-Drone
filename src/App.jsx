@@ -96,7 +96,13 @@ export default function App() {
           <div><div className="section-heading"><p>Credibility</p><h2>Certified and safety-focused.</h2><span>InSight Drone Flights is built around safe, legal, and professional drone work. Commercial drone projects are planned around weather, location, airspace, and client needs.</span></div>
             <div className="cred-list"><p><BadgeCheck /> FAA Part 107 Certificate</p><p><Plane /> DJI Air 3S Operator</p><p><MapPin /> Alaska-based drone service</p></div>
           </div>
-          <GlassCard className="certificate-card"><FileCheck size={64} /><h3>FAA Part 107 Certificate</h3><p>Certificate image or PDF preview goes here.</p><span>Add your certificate number, issue date, or a downloadable certificate link here.</span></GlassCard>
+          <GlassCard className="certificate-card">
+  <FileCheck size={64} />
+  <h3>FAA Part 107 Certified</h3>
+  <p>
+    FAA-certified commercial drone operator providing safe, legal, and professional aerial services across Alaska.
+  </p>
+</GlassCard>
         </section>
 
         <section id="work" className="section">
