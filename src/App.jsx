@@ -158,7 +158,12 @@ export default function App() {
             <form className="contact-form">
               <input placeholder="Name" /><input placeholder="Email" /><input placeholder="Project location" />
               <textarea placeholder="What do you need filmed or photographed?" />
-              <button type="button">Send Request</button>
+             <a
+  className="form-submit"
+  href="mailto:hello@insightdroneflights.com?subject=Drone%20Project%20Request&body=Name:%0AEmail:%0ALocation:%0AProject%20details:"
+>
+  Send Request
+</a>
             </form>
           </PremiumGlass>
         </section>

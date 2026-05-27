@@ -726,7 +726,8 @@ textarea {
   border-color: #d8c7a3;
 }
 
-.contact-form button {
+.contact-form button,
+.form-submit {
   border: 0;
   border-radius: 18px;
   padding: 16px;
@@ -737,7 +738,8 @@ textarea {
   transition: 180ms ease;
 }
 
-.contact-form button:hover {
+.contact-form button:hover,
+.form-submit:hover {
   transform: translateY(-2px);
   background: white;
 }
