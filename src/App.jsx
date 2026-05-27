@@ -34,60 +34,77 @@ function PremiumGlass({ children, className = "" }) {
   return <div className={`premium-glass ${className}`}>{children}</div>;
 }
 
-function ImagePanel({ item, className = "" }) {
+function ImagePanel({ item, className = "", onClick }) {
   return (
-    <div className={`image-panel ${className}`}>
+    <button
+      type="button"
+      className={`image-panel ${className}`}
+      onClick={() => onClick(item)}
+    >
       <img src={item.image} alt={item.title} />
       <div className="image-gradient" />
       <div className="image-tag">{item.tag}</div>
       <div className="image-title">
         <h3>{item.title}</h3>
       </div>
-    </div>
+    </button>
   );
 }
 
 export default function App() {
+  const [selectedImage, setSelectedImage] = React.useState(null);
+
   React.useEffect(() => {
-  const droneOne = document.getElementById("scrollDroneOne");
-  const droneTwo = document.getElementById("scrollDroneTwo");
-  const stars = document.getElementById("scrollStars");
+    const droneOne = document.getElementById("scrollDroneOne");
+    const droneTwo = document.getElementById("scrollDroneTwo");
+    const stars = document.getElementById("scrollStars");
 
-  const moveEffects = () => {
-    const maxScroll = document.body.scrollHeight - window.innerHeight;
-    const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+    const moveEffects = () => {
+      const maxScroll = document.body.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
 
-    if (droneOne) {
-      const x = progress * (window.innerWidth + 220) - 140;
-      const y = Math.sin(progress * 8) * 40;
-      droneOne.style.transform =
-        `translate(${x}px, ${y}px) rotate(${progress * 360}deg)`;
-    }
+      if (droneOne) {
+        const x = progress * (window.innerWidth + 220) - 140;
+        const y = Math.sin(progress * 8) * 40;
+        droneOne.style.transform =
+          `translate(${x}px, ${y}px) rotate(${progress * 360}deg)`;
+      }
 
-    if (droneTwo) {
-      const x = -progress * (window.innerWidth + 260);
-      const y = progress * (window.innerHeight + 260);
-      droneTwo.style.transform =
-        `translate(${x}px, ${y}px) rotate(${-progress * 420}deg) scale(.82)`;
-    }
+      if (droneTwo) {
+        const x = -progress * (window.innerWidth + 260);
+        const y = progress * (window.innerHeight + 260);
+        droneTwo.style.transform =
+          `translate(${x}px, ${y}px) rotate(${-progress * 420}deg) scale(.82)`;
+      }
 
-    if (stars) {
-  stars.style.opacity = "0.45";
-  stars.style.transform = "none";
-}
-  };
+      if (stars) {
+        stars.style.opacity = "0.38";
+        stars.style.transform = "none";
+      }
+    };
 
-  window.addEventListener("scroll", moveEffects);
-  moveEffects();
+    window.addEventListener("scroll", moveEffects);
+    moveEffects();
 
-  return () => window.removeEventListener("scroll", moveEffects);
-}, []);
+    return () => window.removeEventListener("scroll", moveEffects);
+  }, []);
+
+  React.useEffect(() => {
+    const closeOnEscape = (event) => {
+      if (event.key === "Escape") {
+        setSelectedImage(null);
+      }
+    };
+
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, []);
 
   return (
     <div className="site">
-     <div className="scroll-stars" id="scrollStars"></div>
-<div className="scroll-drone drone-one" id="scrollDroneOne"></div>
-<div className="scroll-drone drone-two" id="scrollDroneTwo"></div>
+      <div className="scroll-stars" id="scrollStars"></div>
+      <div className="scroll-drone drone-one" id="scrollDroneOne"></div>
+      <div className="scroll-drone drone-two" id="scrollDroneTwo"></div>
       <div className="orb orb-one" />
       <div className="orb orb-two" />
       <div className="orb orb-three" />
@@ -107,7 +124,7 @@ export default function App() {
             <a href="#contact">Contact</a>
           </nav>
 
-          <a href="mailto:hello@insightdroneflights.com" className="nav-cta">
+          <a href="#contact" className="nav-cta">
             Get a Quote
           </a>
         </div>
@@ -130,10 +147,7 @@ export default function App() {
             </p>
 
             <div className="hero-actions">
-              <a
-                href="mailto:hello@insightdroneflights.com"
-                className="primary-btn"
-              >
+              <a href="#contact" className="primary-btn">
                 Request a Quote <ArrowRight size={18} />
               </a>
 
@@ -145,15 +159,15 @@ export default function App() {
 
           <div className="hero-visual">
             <PremiumGlass className="hero-main">
-              <ImagePanel item={portfolio[0]} />
+              <ImagePanel item={portfolio[0]} onClick={setSelectedImage} />
             </PremiumGlass>
 
             <PremiumGlass className="hero-card hero-card-right">
-              <ImagePanel item={portfolio[3]} />
+              <ImagePanel item={portfolio[3]} onClick={setSelectedImage} />
             </PremiumGlass>
 
             <PremiumGlass className="hero-card hero-card-left">
-              <ImagePanel item={portfolio[1]} />
+              <ImagePanel item={portfolio[1]} onClick={setSelectedImage} />
             </PremiumGlass>
 
             <PremiumGlass className="hud-card hud-top">
@@ -258,6 +272,87 @@ export default function App() {
           </PremiumGlass>
         </section>
 
+        <section id="credibility" className="section credibility">
+          <div>
+            <div className="section-heading">
+              <p>Credibility</p>
+              <h2>Certified, careful, and safety-focused.</h2>
+              <span>
+                Commercial drone work is planned around weather, location,
+                airspace, and the needs of the project.
+              </span>
+            </div>
+          </div>
+
+          <div className="cred-grid">
+            <PremiumGlass className="cert-card">
+              <FileCheck size={62} />
+              <h3>FAA Part 107 Certified</h3>
+              <p>
+                FAA-certified commercial drone operator providing safe, legal,
+                and professional aerial services across Alaska.
+              </p>
+            </PremiumGlass>
+
+            <PremiumGlass className="cred-list">
+              <p><BadgeCheck /> FAA Part 107 Certified</p>
+              <p><Plane /> DJI Air 3S Operator</p>
+              <p><MapPin /> Alaska-based service</p>
+              <p><ShieldCheck /> Safety-minded flight planning</p>
+            </PremiumGlass>
+          </div>
+        </section>
+
+        <section id="work" className="section">
+          <div className="section-heading center">
+            <p>Portfolio</p>
+            <h2>Recent aerial work</h2>
+          </div>
+
+          <div className="portfolio-grid">
+            <PremiumGlass className="portfolio-large">
+              <ImagePanel item={portfolio[0]} onClick={setSelectedImage} />
+            </PremiumGlass>
+
+            <PremiumGlass>
+              <ImagePanel item={portfolio[1]} onClick={setSelectedImage} />
+            </PremiumGlass>
+
+            <PremiumGlass>
+              <ImagePanel item={portfolio[2]} onClick={setSelectedImage} />
+            </PremiumGlass>
+
+            <PremiumGlass className="portfolio-wide">
+              <ImagePanel item={portfolio[3]} onClick={setSelectedImage} />
+            </PremiumGlass>
+
+            <PremiumGlass className="portfolio-wide">
+              <ImagePanel item={portfolio[4]} onClick={setSelectedImage} />
+            </PremiumGlass>
+          </div>
+        </section>
+
+        <section className="section process">
+          <div className="section-heading">
+            <p>Process</p>
+            <h2>Simple from planning to delivery.</h2>
+          </div>
+
+          <div className="process-list">
+            {[
+              "Tell me the project goal and location",
+              "Plan weather, airspace, and shot timing",
+              "Capture aerial photos or video safely",
+              "Deliver polished files for web, listings, or social"
+            ].map((step, index) => (
+              <PremiumGlass key={step} className="process-step">
+                <strong>{index + 1}</strong>
+                <p><CheckCircle2 /> {step}</p>
+              </PremiumGlass>
+            ))}
+          </div>
+        </section>
+
         <section id="contact" className="section">
           <PremiumGlass className="contact-panel">
             <div>
@@ -296,6 +391,30 @@ export default function App() {
       <footer className="footer">
         © 2026 InSight Drone Flights • insightdroneflights.com
       </footer>
+
+      {selectedImage && (
+        <div className="lightbox" onClick={() => setSelectedImage(null)}>
+          <button
+            type="button"
+            className="lightbox-close"
+            onClick={() => setSelectedImage(null)}
+            aria-label="Close image"
+          >
+            ×
+          </button>
+
+          <img
+            src={selectedImage.image}
+            alt={selectedImage.title}
+            onClick={(event) => event.stopPropagation()}
+          />
+
+          <div className="lightbox-caption">
+            <p>{selectedImage.tag}</p>
+            <h3>{selectedImage.title}</h3>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
