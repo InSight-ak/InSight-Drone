@@ -72,9 +72,9 @@ export default function App() {
     }
 
     if (stars) {
-      stars.style.opacity = `${0.08 + progress * 0.18}`;
-      stars.style.transform = `translateY(${-progress * 80}px)`;
-    }
+  stars.style.opacity = "0.45";
+  stars.style.transform = "none";
+}
   };
 
   window.addEventListener("scroll", moveEffects);
