@@ -125,7 +125,7 @@ const [showAbout, setShowAbout] = React.useState(false);
   <a href="#credibility">Credibility</a>
   <a href="#work">Work</a>
   <a href="#contact">Contact</a>
-
+</nav>
 
           <a href="#contact" className="nav-cta">
             Get a Quote
@@ -137,27 +137,32 @@ const [showAbout, setShowAbout] = React.useState(false);
 {showAbout ? (
   <section className="section about-page">
     <PremiumGlass className="about-panel">
-      <button className="about-back" onClick={() => setShowAbout(false)}>
+      <button
+        className="about-back"
+        onClick={() => setShowAbout(false)}
+      >
         ← Back Home
       </button>
 
       <div className="section-heading">
         <p>About Me</p>
-        <h2>Built from aviation, photography, and self-driven work.</h2>
+        <h2>
+          Built from aviation, photography, and self-driven work.
+        </h2>
       </div>
 
       <div className="about-copy">
         <p>
-          I grew up around aviation and photography, which naturally shaped the
-          way I see the world today. My dad worked as a pilot, and from an
-          early age I was exposed to aviation, weather, navigation, and the
-          unique perspective that comes from seeing landscapes from above.
+          I grew up around aviation and photography, which naturally shaped
+          the way I see the world today. My dad worked as a pilot, and from
+          an early age I was exposed to aviation, weather, navigation, and
+          the unique perspective that comes from seeing landscapes from above.
         </p>
 
         <p>
-          At the same time, my mom’s background in photography introduced me to
-          composition, lighting, storytelling, and the importance of capturing
-          moments in a meaningful way.
+          At the same time, my mom’s background in photography introduced me
+          to composition, lighting, storytelling, and the importance of
+          capturing moments in a meaningful way.
         </p>
 
         <p>
@@ -167,15 +172,14 @@ const [showAbout, setShowAbout] = React.useState(false);
         </p>
 
         <p>
-          My focus is simple: create professional aerial media with attention to
-          detail, strong communication, and a genuine passion for both aviation
-          and photography.
+          My focus is simple: create professional aerial media with attention
+          to detail, strong communication, and a genuine passion for both
+          aviation and photography.
         </p>
       </div>
     </PremiumGlass>
   </section>
-) : (
-        <section className="hero section">
+) : (        <section className="hero section">
           <div className="hero-copy">
             <div className="eyebrow">
               <Plane size={16} /> DJI Air 3S • Alaska Drone Services
