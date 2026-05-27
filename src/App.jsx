@@ -2,11 +2,11 @@ import React from "react";
 import { ArrowRight, BadgeCheck, Building2, Camera, CheckCircle2, ClipboardCheck, FileCheck, Home, Mail, MapPin, Mountain, Phone, Plane, ShieldCheck, Sparkles, TreePine } from "lucide-react";
 
 const portfolio = [
-  { title: "Alaska Mountain Views", tag: "Scenic Aerial", image: "/images/mountains.jpg" },
-  { title: "Moose Wildlife Capture", tag: "Wildlife", image: "/images/moose.jpg" },
-  { title: "Luxury Real Estate", tag: "Property Showcase", image: "/images/house-hero.jpg" },
-  { title: "Residential Listing", tag: "Real Estate", image: "/images/house-2.jpg" },
-  { title: "Sunset Over Alaska", tag: "Cinematic Aerial", image: "/images/sunset.jpg" }
+  { title: "Sunset Over Alaska", tag: "Cinematic Aerial", image: "/images/sunset.JPG" },
+  { title: "Alaska Mountain Views", tag: "Scenic Aerial", image: "/images/mountains.JPG" },
+  { title: "Moose Wildlife Capture", tag: "Wildlife", image: "/images/moose.JPG" },
+  { title: "Luxury Real Estate", tag: "Property Showcase", image: "/images/house-hero.JPG" },
+  { title: "Residential Listing", tag: "Real Estate", image: "/images/house-2.JPG" }
 ];
 
 function GlassCard({ children, className = "" }) {
