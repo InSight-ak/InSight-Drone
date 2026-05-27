@@ -42,7 +42,7 @@ export default function App() {
           <nav className="nav-links">
             <a href="#services">Services</a><a href="#projects">Projects</a><a href="#credibility">Credibility</a><a href="#work">Work</a><a href="#contact">Contact</a>
           </nav>
-          <a href="#contact" className="nav-cta">Get a Quote</a>
+          <a href="mailto:hello@insightdroneflights.com" className="nav-cta">Get a Quote</a>
         </div>
       </header>
 
@@ -53,7 +53,7 @@ export default function App() {
             <h1>A sharper view of <span>Alaska.</span></h1>
             <p>Professional aerial media for Alaska's businesses, tourism, outdoor projects, and property visuals.</p>
             <div className="hero-actions">
-              <a href="#contact" className="primary-btn">Request a Quote <ArrowRight size={18} /></a>
+             <a href="mailto:hello@insightdroneflights.com" className="primary-btn">Request a Quote <ArrowRight size={18} /></a>
               <a href="#work" className="secondary-btn">View Portfolio</a>
             </div>
           </div>
@@ -152,7 +152,7 @@ export default function App() {
             <div>
               <div className="section-heading"><p>Contact</p><h2>Ready to plan a flight?</h2><span>Send the project type, location, and what you need captured.</span></div>
               <div className="contact-list">
-                <p><Mail /> hello@insightdroneflights.com</p><p><Phone /> Add your phone number here</p><p><MapPin /> Serving Alaska</p><p><ShieldCheck /> FAA Part 107 Certified</p>
+                <p><Mail /> <a href="mailto:hello@insightdroneflights.com">hello@insightdroneflights.com</a></p><p><Phone /> Add your phone number here</p><p><MapPin /> Serving Alaska</p><p><ShieldCheck /> FAA Part 107 Certified</p>
               </div>
             </div>
             <form className="contact-form">
