@@ -52,10 +52,30 @@ const services = [
 ];
 
 const projects = [
-  { icon: <Building2 />, title: "Property Visuals", text: "Homes, lots, cabins, land, and listings.", href: "#work" },
-  { icon: <Mountain />, title: "Tourism Media", text: "Scenic Alaska visuals for promotion.", href: "#work" },
-  { icon: <TreePine />, title: "Outdoor Work", text: "Trails, events, recreation, and adventure.", href: "#contact" },
-  { icon: <Route />, title: "Site Context", text: "Aerial layout views for projects and locations.", href: "#contact" }
+  {
+    icon: <Building2 />,
+    title: "Property Visuals",
+    text: "Homes, lots, cabins, land, and listings.",
+    href: "#work"
+  },
+  {
+    icon: <Mountain />,
+    title: "Tourism Media",
+    text: "Scenic Alaska visuals for promotion.",
+    href: "#work"
+  },
+  {
+    icon: <TreePine />,
+    title: "Outdoor Work",
+    text: "Trails, events, recreation, and adventure.",
+    href: "#contact"
+  },
+  {
+    icon: <Route />,
+    title: "Site Context",
+    text: "Aerial layout views for projects and locations.",
+    href: "#contact"
+  }
 ];
 
 function PremiumGlass({ children, className = "" }) {
@@ -68,11 +88,11 @@ function ImagePanel({ item, className = "", onClick }) {
       type="button"
       className={`image-panel ${className}`}
       onClick={() => onClick(item)}
-      aria-label={`Open ${item.title}`}
     >
       <img src={item.image} alt={item.title} />
       <div className="image-gradient" />
       <div className="image-tag">{item.tag}</div>
+
       <div className="image-title">
         <h3>{item.title}</h3>
         <span>Click to expand</span>
@@ -90,26 +110,41 @@ export default function App() {
     const droneTwo = document.getElementById("scrollDroneTwo");
 
     const moveEffects = () => {
-      const maxScroll = document.body.scrollHeight - window.innerHeight;
-      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+      const maxScroll =
+        document.body.scrollHeight - window.innerHeight;
+
+      const progress =
+        maxScroll > 0 ? window.scrollY / maxScroll : 0;
 
       if (droneOne) {
-        const x = progress * (window.innerWidth + 230) - 150;
-        const y = Math.sin(progress * 7) * 34;
-        droneOne.style.transform = `translate(${x}px, ${y}px) rotate(${progress * 300}deg)`;
+        const x =
+          progress * (window.innerWidth + 240) - 140;
+
+        const y =
+          Math.sin(progress * 7) * 34;
+
+        droneOne.style.transform =
+          `translate(${x}px, ${y}px) rotate(${progress * 300}deg)`;
       }
 
       if (droneTwo) {
-        const x = -progress * (window.innerWidth + 260);
-        const y = progress * (window.innerHeight + 250);
-        droneTwo.style.transform = `translate(${x}px, ${y}px) rotate(${-progress * 360}deg) scale(.78)`;
+        const x =
+          -progress * (window.innerWidth + 260);
+
+        const y =
+          progress * (window.innerHeight + 260);
+
+        droneTwo.style.transform =
+          `translate(${x}px, ${y}px) rotate(${-progress * 360}deg) scale(.78)`;
       }
     };
 
     window.addEventListener("scroll", moveEffects);
+
     moveEffects();
 
-    return () => window.removeEventListener("scroll", moveEffects);
+    return () =>
+      window.removeEventListener("scroll", moveEffects);
   }, []);
 
   React.useEffect(() => {
@@ -121,60 +156,124 @@ export default function App() {
     };
 
     window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
+
+    return () =>
+      window.removeEventListener("keydown", closeOnEscape);
   }, []);
 
   const openAbout = () => {
     setShowAbout(true);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   };
 
   const closeAbout = () => {
     setShowAbout(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   };
 
   return (
     <div className="site">
       <div className="scroll-stars" />
-      <a
-  href="https://www.djiusa.com/products/dji-air-3s-rcn3?utm_source=google&utm_medium=cpc&utm_campaign=search_air3s&utm_content=806315263591&utm_term=23716594697_195569500312_806315263591&gad_source=1&gad_campaignid=23716594697&gclid=CjwKCAjwrNrQBhBjEiwAoR4VO-ih7ro5l-83zGE20Hw1Mg5E7l7EUGTC47Zl74Fu8bmPL3GV1MW_lRoC3w0QAvD_BwE"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="scroll-drone drone-one"
-  id="scrollDroneOne"
-  aria-label="DJI Air 3S"
-></a>
 
-<a
-  href="https://www.djiusa.com/products/dji-air-3s-rcn3?utm_source=google&utm_medium=cpc&utm_campaign=search_air3s&utm_content=806315263591&utm_term=23716594697_195569500312_806315263591&gad_source=1&gad_campaignid=23716594697&gclid=CjwKCAjwrNrQBhBjEiwAoR4VO-ih7ro5l-83zGE20Hw1Mg5E7l7EUGTC47Zl74Fu8bmPL3GV1MW_lRoC3w0QAvD_BwE"
-  target="_blank"
-  rel="noopener noreferrer"
-  className="scroll-drone drone-two"
-  id="scrollDroneTwo"
-  aria-label="DJI Air 3S"
-></a>
+      <a
+        href="https://www.djiusa.com/products/dji-air-3s-rcn3"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="scroll-drone drone-one"
+        id="scrollDroneOne"
+        title="DJI Air 3S"
+      ></a>
+
+      <a
+        href="https://www.djiusa.com/products/dji-air-3s-rcn3"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="scroll-drone drone-two"
+        id="scrollDroneTwo"
+        title="DJI Air 3S"
+      ></a>
+
       <div className="orb orb-one" />
       <div className="orb orb-two" />
       <div className="orb orb-three" />
 
       <header className="site-header">
         <div className="nav-wrap">
-          <button type="button" className="brand brand-button" onClick={() => { setShowAbout(false); window.scrollTo({ top: 0, behavior: "smooth" }); }}>
+          <button
+            type="button"
+            className="brand brand-button"
+            onClick={() => {
+              setShowAbout(false);
+
+              window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+              });
+            }}
+          >
             In<span>Sight</span>
+
             <small>Drone Flights</small>
           </button>
 
           <nav className="nav-links">
-            <a href="#services" onClick={() => setShowAbout(false)}>Services</a>
-            <button type="button" className="nav-link-button" onClick={openAbout}>About</button>
-            <a href="#projects" onClick={() => setShowAbout(false)}>Projects</a>
-            <a href="#credibility" onClick={() => setShowAbout(false)}>Credibility</a>
-            <a href="#work" onClick={() => setShowAbout(false)}>Work</a>
-            <a href="#contact" onClick={() => setShowAbout(false)}>Contact</a>
+            <a
+              href="#services"
+              onClick={() => setShowAbout(false)}
+            >
+              Services
+            </a>
+
+            <button
+              type="button"
+              className="nav-link-button"
+              onClick={openAbout}
+            >
+              About
+            </button>
+
+            <a
+              href="#projects"
+              onClick={() => setShowAbout(false)}
+            >
+              Projects
+            </a>
+
+            <a
+              href="#credibility"
+              onClick={() => setShowAbout(false)}
+            >
+              Credibility
+            </a>
+
+            <a
+              href="#work"
+              onClick={() => setShowAbout(false)}
+            >
+              Work
+            </a>
+
+            <a
+              href="#contact"
+              onClick={() => setShowAbout(false)}
+            >
+              Contact
+            </a>
           </nav>
 
-          <a href="#contact" onClick={() => setShowAbout(false)} className="nav-cta">
+          <a
+            href="#contact"
+            onClick={() => setShowAbout(false)}
+            className="nav-cta"
+          >
             Get a Quote
           </a>
         </div>
@@ -184,58 +283,107 @@ export default function App() {
         {showAbout ? (
           <section className="section about-page">
             <PremiumGlass className="about-panel">
-              <button type="button" className="about-back" onClick={closeAbout}>
-                <X size={18} /> Back Home
+              <button
+                type="button"
+                className="about-back"
+                onClick={closeAbout}
+              >
+                <X size={18} />
+                Back Home
               </button>
 
               <div className="about-layout">
                 <div className="section-heading">
                   <p>About Me</p>
-                  <h2>Built from aviation, photography, and self-driven work.</h2>
+
+                  <h2>
+                    Built from aviation,
+                    photography,
+                    and self-driven work.
+                  </h2>
                 </div>
 
                 <div className="about-copy">
                   <p>
-                    I grew up around aviation and photography, which naturally shaped the way I see the world today.
-                    My dad worked as a pilot, and from an early age I was exposed to aviation, weather, navigation,
-                    and the unique perspective that comes from seeing landscapes from above.
+                    I grew up around aviation and photography,
+                    which naturally shaped the way I see the
+                    world today. My dad worked as a pilot,
+                    and from an early age I was exposed to
+                    aviation, weather, navigation,
+                    and the unique perspective that comes
+                    from seeing landscapes from above.
                   </p>
 
                   <p>
-                    At the same time, my mom’s background in photography introduced me to composition, lighting,
-                    storytelling, and the importance of capturing moments in a meaningful way. Those influences
-                    eventually came together through drone work.
+                    At the same time, my mom’s background
+                    in photography introduced me to
+                    composition, lighting, storytelling,
+                    and the importance of capturing moments
+                    in a meaningful way.
                   </p>
 
                   <p>
-                    I’m also a homeschooled student currently taking college courses at 16 years old, which has pushed
-                    me to become self-driven and independent. Homeschooling taught me how to manage my own schedule,
-                    stay disciplined, solve problems, and work toward long-term goals.
+                    I’m also a homeschooled student currently
+                    taking college courses at 16 years old,
+                    which has pushed me to become
+                    self-driven and independent.
                   </p>
 
                   <p>
-                    My focus is simple: create professional aerial media with attention to detail, strong communication,
-                    and a genuine passion for both aviation and photography.
+                    My focus is simple:
+                    create professional aerial media
+                    with attention to detail,
+                    strong communication,
+                    and a genuine passion
+                    for both aviation and photography.
                   </p>
                 </div>
 
                 <div className="about-stat-grid">
-                  <a href="#credibility" onClick={closeAbout} className="about-stat">
+                  <a
+                    href="#credibility"
+                    onClick={closeAbout}
+                    className="about-stat"
+                  >
                     <Plane />
+
                     <strong>Aviation Influence</strong>
-                    <span>Raised around flight, weather, and navigation.</span>
+
+                    <span>
+                      Raised around flight,
+                      weather, and navigation.
+                    </span>
                   </a>
 
-                  <a href="#work" onClick={closeAbout} className="about-stat">
+                  <a
+                    href="#work"
+                    onClick={closeAbout}
+                    className="about-stat"
+                  >
                     <Camera />
+
                     <strong>Photography Background</strong>
-                    <span>Composition, light, and storytelling matter.</span>
+
+                    <span>
+                      Composition, light,
+                      and storytelling matter.
+                    </span>
                   </a>
 
-                  <a href="#contact" onClick={closeAbout} className="about-stat">
+                  <a
+                    href="#contact"
+                    onClick={closeAbout}
+                    className="about-stat"
+                  >
                     <BadgeCheck />
+
                     <strong>Self-Driven</strong>
-                    <span>Homeschooled, 16, and taking college courses.</span>
+
+                    <span>
+                      Homeschooled,
+                      16,
+                      and taking college courses.
+                    </span>
                   </a>
                 </div>
               </div>
@@ -246,7 +394,8 @@ export default function App() {
             <section className="hero section">
               <div className="hero-copy">
                 <div className="eyebrow">
-                  <Plane size={16} /> DJI Air 3S • Alaska Drone Services
+                  <Plane size={16} />
+                  DJI Air 3S • Alaska Drone Services
                 </div>
 
                 <h1>
@@ -254,16 +403,24 @@ export default function App() {
                 </h1>
 
                 <p>
-                  Professional aerial media for Alaska's businesses, tourism, outdoor projects,
+                  Professional aerial media for Alaska's
+                  businesses, tourism, outdoor projects,
                   and property visuals.
                 </p>
 
                 <div className="hero-actions">
-                  <a href="#contact" className="primary-btn">
-                    Request a Quote <ArrowRight size={18} />
+                  <a
+                    href="#contact"
+                    className="primary-btn"
+                  >
+                    Request a Quote
+                    <ArrowRight size={18} />
                   </a>
 
-                  <a href="#work" className="secondary-btn">
+                  <a
+                    href="#work"
+                    className="secondary-btn"
+                  >
                     View Portfolio
                   </a>
                 </div>
@@ -271,38 +428,64 @@ export default function App() {
 
               <div className="hero-visual">
                 <PremiumGlass className="hero-main">
-                  <ImagePanel item={portfolio[0]} onClick={setSelectedImage} />
+                  <ImagePanel
+                    item={portfolio[0]}
+                    onClick={setSelectedImage}
+                  />
                 </PremiumGlass>
 
                 <PremiumGlass className="hero-card hero-card-right">
-                  <ImagePanel item={portfolio[3]} onClick={setSelectedImage} />
+                  <ImagePanel
+                    item={portfolio[3]}
+                    onClick={setSelectedImage}
+                  />
                 </PremiumGlass>
 
                 <PremiumGlass className="hero-card hero-card-left">
-                  <ImagePanel item={portfolio[1]} onClick={setSelectedImage} />
+                  <ImagePanel
+                    item={portfolio[1]}
+                    onClick={setSelectedImage}
+                  />
                 </PremiumGlass>
 
-                <a href="#work" className="hud-card hud-top">
+                <a
+                  href="#work"
+                  className="hud-card hud-top"
+                >
                   <Aperture size={24} />
                   <span>4K aerial media</span>
                 </a>
 
-                <button type="button" className="hud-card hud-middle" onClick={openAbout}>
+                <button
+                  type="button"
+                  className="hud-card hud-middle"
+                  onClick={openAbout}
+                >
                   <Compass size={24} />
                   <span>Alaska-based</span>
                 </button>
 
-                <a href="#contact" className="hud-card hud-bottom">
+                <a
+                  href="#contact"
+                  className="hud-card hud-bottom"
+                >
                   <Crosshair size={24} />
                   <span>Clean useful angles</span>
                 </a>
               </div>
             </section>
 
-            <section id="services" className="section">
+            <section
+              id="services"
+              className="section"
+            >
               <div className="section-heading center">
                 <p>Services</p>
-                <h2>Aerial media without the overdone sales pitch.</h2>
+
+                <h2>
+                  Aerial media without the
+                  overdone sales pitch.
+                </h2>
               </div>
 
               <div className="service-grid">
@@ -310,33 +493,58 @@ export default function App() {
                   <a
                     href={item.href}
                     key={item.title}
-                    className={`premium-glass service-card ${index === 1 ? "offset-card" : ""}`}
+                    className={`premium-glass service-card ${
+                      index === 1
+                        ? "offset-card"
+                        : ""
+                    }`}
                   >
-                    <div className="icon-box">{item.icon}</div>
+                    <div className="icon-box">
+                      {item.icon}
+                    </div>
+
                     <h3>{item.title}</h3>
+
                     <p>{item.text}</p>
                   </a>
                 ))}
               </div>
             </section>
 
-            <section id="projects" className="section">
+            <section
+              id="projects"
+              className="section"
+            >
               <PremiumGlass className="projects-panel">
                 <div className="projects-copy">
                   <div className="section-heading">
                     <p>Projects</p>
-                    <h2>What InSight is built to capture.</h2>
+
+                    <h2>
+                      What InSight is built to capture.
+                    </h2>
+
                     <span>
-                      Focused aerial work for Alaska properties, tourism, and local business media.
+                      Focused aerial work for Alaska
+                      properties, tourism,
+                      and local business media.
                     </span>
                   </div>
                 </div>
 
                 <div className="project-orbit">
                   {projects.map((item) => (
-                    <a key={item.title} href={item.href} className="project-node">
-                      <div className="node-icon">{item.icon}</div>
+                    <a
+                      key={item.title}
+                      href={item.href}
+                      className="project-node"
+                    >
+                      <div className="node-icon">
+                        {item.icon}
+                      </div>
+
                       <h3>{item.title}</h3>
+
                       <p>{item.text}</p>
                     </a>
                   ))}
@@ -344,60 +552,116 @@ export default function App() {
               </PremiumGlass>
             </section>
 
-            <section id="credibility" className="section credibility">
+            <section
+              id="credibility"
+              className="section credibility"
+            >
               <div>
                 <div className="section-heading">
                   <p>Credibility</p>
-                  <h2>Certified, careful, and safety-focused.</h2>
+
+                  <h2>
+                    Certified,
+                    careful,
+                    and safety-focused.
+                  </h2>
+
                   <span>
-                    Commercial drone work is planned around weather, location, airspace, and the needs of the project.
+                    Commercial drone work is planned
+                    around weather,
+                    location,
+                    airspace,
+                    and the needs of the project.
                   </span>
                 </div>
               </div>
 
               <div className="cred-grid">
-                <a href="#contact" className="premium-glass cert-card">
+                <a
+                  href="#contact"
+                  className="premium-glass cert-card"
+                >
                   <FileCheck size={62} />
+
                   <h3>FAA Part 107 Certified</h3>
+
                   <p>
-                    FAA-certified commercial drone operator providing safe, legal, and professional aerial services across Alaska.
+                    FAA-certified commercial drone
+                    operator providing safe,
+                    legal,
+                    and professional aerial services
+                    across Alaska.
                   </p>
                 </a>
 
                 <PremiumGlass className="cred-list">
-                  <p><BadgeCheck /> FAA Part 107 Certified</p>
-                  <p><Plane /> DJI Air 3S Operator</p>
-                  <p><MapPin /> Alaska-based service</p>
-                  <p><ShieldCheck /> Safety-minded flight planning</p>
+                  <p>
+                    <BadgeCheck />
+                    FAA Part 107 Certified
+                  </p>
+
+                  <p>
+                    <Plane />
+                    DJI Air 3S Operator
+                  </p>
+
+                  <p>
+                    <MapPin />
+                    Alaska-based service
+                  </p>
+
+                  <p>
+                    <ShieldCheck />
+                    Safety-minded flight planning
+                  </p>
                 </PremiumGlass>
               </div>
             </section>
 
-            <section id="work" className="section">
+            <section
+              id="work"
+              className="section"
+            >
               <div className="section-heading center">
                 <p>Portfolio</p>
+
                 <h2>Recent aerial work</h2>
               </div>
 
               <div className="portfolio-grid">
                 <PremiumGlass className="portfolio-large">
-                  <ImagePanel item={portfolio[0]} onClick={setSelectedImage} />
+                  <ImagePanel
+                    item={portfolio[0]}
+                    onClick={setSelectedImage}
+                  />
                 </PremiumGlass>
 
                 <PremiumGlass>
-                  <ImagePanel item={portfolio[1]} onClick={setSelectedImage} />
+                  <ImagePanel
+                    item={portfolio[1]}
+                    onClick={setSelectedImage}
+                  />
                 </PremiumGlass>
 
                 <PremiumGlass>
-                  <ImagePanel item={portfolio[2]} onClick={setSelectedImage} />
+                  <ImagePanel
+                    item={portfolio[2]}
+                    onClick={setSelectedImage}
+                  />
                 </PremiumGlass>
 
                 <PremiumGlass className="portfolio-wide">
-                  <ImagePanel item={portfolio[3]} onClick={setSelectedImage} />
+                  <ImagePanel
+                    item={portfolio[3]}
+                    onClick={setSelectedImage}
+                  />
                 </PremiumGlass>
 
                 <PremiumGlass className="portfolio-wide">
-                  <ImagePanel item={portfolio[4]} onClick={setSelectedImage} />
+                  <ImagePanel
+                    item={portfolio[4]}
+                    onClick={setSelectedImage}
+                  />
                 </PremiumGlass>
               </div>
             </section>
@@ -405,7 +669,10 @@ export default function App() {
             <section className="section process">
               <div className="section-heading">
                 <p>Process</p>
-                <h2>Simple from planning to delivery.</h2>
+
+                <h2>
+                  Simple from planning to delivery.
+                </h2>
               </div>
 
               <div className="process-list">
@@ -415,27 +682,55 @@ export default function App() {
                   "Capture aerial photos or video safely",
                   "Deliver polished files for web, listings, or social"
                 ].map((step, index) => (
-                  <a href="#contact" key={step} className="premium-glass process-step">
+                  <a
+                    href="#contact"
+                    key={step}
+                    className="premium-glass process-step"
+                  >
                     <strong>{index + 1}</strong>
-                    <p><CheckCircle2 /> {step}</p>
+
+                    <p>
+                      <CheckCircle2 />
+                      {step}
+                    </p>
                   </a>
                 ))}
               </div>
             </section>
 
-            <section id="contact" className="section">
+            <section
+              id="contact"
+              className="section"
+            >
               <PremiumGlass className="contact-panel">
                 <div>
                   <div className="section-heading">
                     <p>Contact</p>
+
                     <h2>Ready to plan a flight?</h2>
-                    <span>Send the project type, location, and details.</span>
+
+                    <span>
+                      Send the project type,
+                      location,
+                      and details.
+                    </span>
                   </div>
 
                   <div className="contact-list">
-                    <p><Mail /> hello@insightdroneflights.com</p>
-                    <p><MapPin /> Serving Alaska</p>
-                    <p><ShieldCheck /> FAA Part 107 Certified</p>
+                    <p>
+                      <Mail />
+                      hello@insightdroneflights.com
+                    </p>
+
+                    <p>
+                      <MapPin />
+                      Serving Alaska
+                    </p>
+
+                    <p>
+                      <ShieldCheck />
+                      FAA Part 107 Certified
+                    </p>
                   </div>
                 </div>
 
@@ -444,11 +739,35 @@ export default function App() {
                   action="https://formspree.io/f/mvzyvlda"
                   method="POST"
                 >
-                  <input type="text" name="name" placeholder="Name" required />
-                  <input type="email" name="email" placeholder="Email" required />
-                  <input type="text" name="location" placeholder="Location" />
-                  <textarea name="message" placeholder="Tell me about your project..." required />
-                  <button type="submit">Send Request</button>
+                  <input
+                    type="text"
+                    name="name"
+                    placeholder="Name"
+                    required
+                  />
+
+                  <input
+                    type="email"
+                    name="email"
+                    placeholder="Email"
+                    required
+                  />
+
+                  <input
+                    type="text"
+                    name="location"
+                    placeholder="Location"
+                  />
+
+                  <textarea
+                    name="message"
+                    placeholder="Tell me about your project..."
+                    required
+                  />
+
+                  <button type="submit">
+                    Send Request
+                  </button>
                 </form>
               </PremiumGlass>
             </section>
@@ -461,12 +780,14 @@ export default function App() {
       </footer>
 
       {selectedImage && (
-        <div className="lightbox" onClick={() => setSelectedImage(null)}>
+        <div
+          className="lightbox"
+          onClick={() => setSelectedImage(null)}
+        >
           <button
             type="button"
             className="lightbox-close"
             onClick={() => setSelectedImage(null)}
-            aria-label="Close image"
           >
             ×
           </button>
@@ -474,11 +795,14 @@ export default function App() {
           <img
             src={selectedImage.image}
             alt={selectedImage.title}
-            onClick={(event) => event.stopPropagation()}
+            onClick={(event) =>
+              event.stopPropagation()
+            }
           />
 
           <div className="lightbox-caption">
             <p>{selectedImage.tag}</p>
+
             <h3>{selectedImage.title}</h3>
           </div>
         </div>
