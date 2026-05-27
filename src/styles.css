@@ -39,14 +39,13 @@ textarea {
   position: fixed;
   inset: 0;
   z-index: 0;
-  opacity: 0.045;
+  opacity: 0.025;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.8) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.8) 1px, transparent 1px);
-  background-size: 64px 64px;
+    linear-gradient(rgba(255, 255, 255, 0.35) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.35) 1px, transparent 1px);
+  background-size: 96px 96px;
   pointer-events: none;
 }
-
 .orb {
   position: fixed;
   z-index: 0;
