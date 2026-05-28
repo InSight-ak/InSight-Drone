@@ -19,7 +19,10 @@ import {
   ShieldCheck,
   Sparkles,
   TreePine,
-  X
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Menu
 } from "lucide-react";
 
 const DJI_AIR_3S_URL = "https://www.djiusa.com/products/dji-air-3s-rcn3";
@@ -37,13 +40,13 @@ const services = [
     icon: <Home />,
     title: "Real Estate",
     text: "Clean aerial photos and short clips that help homes, cabins, land, and listings stand out.",
-    href: "#work"
+    href: "#portfolio"
   },
   {
     icon: <Sparkles />,
     title: "Marketing Content",
     text: "Visuals for tourism pages, reels, ads, local businesses, websites, and outdoor brands.",
-    href: "#work"
+    href: "#portfolio"
   },
   {
     icon: <ClipboardCheck />,
@@ -54,8 +57,8 @@ const services = [
 ];
 
 const projects = [
-  { icon: <Building2 />, title: "Property Visuals", text: "Homes, lots, cabins, land, and listings.", href: "#work" },
-  { icon: <Mountain />, title: "Tourism Media", text: "Scenic Alaska visuals for promotion.", href: "#work" },
+  { icon: <Building2 />, title: "Property Visuals", text: "Homes, lots, cabins, land, and listings.", href: "#portfolio" },
+  { icon: <Mountain />, title: "Tourism Media", text: "Scenic Alaska visuals for promotion.", href: "#portfolio" },
   { icon: <TreePine />, title: "Outdoor Work", text: "Trails, events, recreation, and adventure.", href: "#contact" },
   { icon: <Route />, title: "Site Context", text: "Aerial layout views for projects and locations.", href: "#contact" }
 ];
@@ -77,7 +80,7 @@ function ImagePanel({ item, className = "", onClick }) {
       <div className="image-tag">{item.tag}</div>
       <div className="image-title">
         <h3>{item.title}</h3>
-        <span>Click to expand</span>
+        <span>Tap to expand</span>
       </div>
     </button>
   );
@@ -86,6 +89,57 @@ function ImagePanel({ item, className = "", onClick }) {
 export default function App() {
   const [selectedImage, setSelectedImage] = React.useState(null);
   const [showAbout, setShowAbout] = React.useState(false);
+  const [showPortfolio, setShowPortfolio] = React.useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+
+  const selectedIndex = selectedImage
+    ? portfolio.findIndex((item) => item.image === selectedImage.image)
+    : -1;
+
+  const scrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const closePages = () => {
+    setShowAbout(false);
+    setShowPortfolio(false);
+    setMobileMenuOpen(false);
+  };
+
+  const openAbout = () => {
+    setShowAbout(true);
+    setShowPortfolio(false);
+    setMobileMenuOpen(false);
+    scrollTop();
+  };
+
+  const openPortfolio = () => {
+    setShowPortfolio(true);
+    setShowAbout(false);
+    setMobileMenuOpen(false);
+    scrollTop();
+  };
+
+  const goHome = () => {
+    closePages();
+    scrollTop();
+  };
+
+  const openImage = (item) => {
+    setSelectedImage(item);
+  };
+
+  const showNextImage = React.useCallback(() => {
+    if (selectedIndex < 0) return;
+    const nextIndex = (selectedIndex + 1) % portfolio.length;
+    setSelectedImage(portfolio[nextIndex]);
+  }, [selectedIndex]);
+
+  const showPreviousImage = React.useCallback(() => {
+    if (selectedIndex < 0) return;
+    const previousIndex = (selectedIndex - 1 + portfolio.length) % portfolio.length;
+    setSelectedImage(portfolio[previousIndex]);
+  }, [selectedIndex]);
 
   React.useEffect(() => {
     const droneOne = document.getElementById("scrollDroneOne");
@@ -94,23 +148,16 @@ export default function App() {
     const moveEffects = () => {
       const maxScroll = document.body.scrollHeight - window.innerHeight;
       const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-      const isMobile = window.innerWidth <= 620;
 
       if (droneOne) {
-        const x = isMobile
-          ? progress * (window.innerWidth + 120) - 90
-          : progress * (window.innerWidth + 240) - 140;
-        const y = Math.sin(progress * 7) * (isMobile ? 18 : 34);
+        const x = progress * (window.innerWidth + 240) - 140;
+        const y = Math.sin(progress * 7) * 34;
         droneOne.style.transform = `translate(${x}px, ${y}px) rotate(${progress * 300}deg)`;
       }
 
       if (droneTwo) {
-        const x = isMobile
-          ? -progress * (window.innerWidth + 140)
-          : -progress * (window.innerWidth + 260);
-        const y = isMobile
-          ? progress * (window.innerHeight + 140)
-          : progress * (window.innerHeight + 260);
+        const x = -progress * (window.innerWidth + 260);
+        const y = progress * (window.innerHeight + 260);
         droneTwo.style.transform = `translate(${x}px, ${y}px) rotate(${-progress * 360}deg) scale(.78)`;
       }
     };
@@ -130,26 +177,70 @@ export default function App() {
       if (event.key === "Escape") {
         setSelectedImage(null);
         setShowAbout(false);
+        setShowPortfolio(false);
+        setMobileMenuOpen(false);
+      }
+
+      if (selectedImage && event.key === "ArrowRight") {
+        showNextImage();
+      }
+
+      if (selectedImage && event.key === "ArrowLeft") {
+        showPreviousImage();
       }
     };
 
     window.addEventListener("keydown", closeOnEscape);
     return () => window.removeEventListener("keydown", closeOnEscape);
-  }, []);
+  }, [selectedImage, showNextImage, showPreviousImage]);
 
-  const goTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  React.useEffect(() => {
+    if (!selectedImage) return;
 
-  const openAbout = () => {
-    setShowAbout(true);
-    goTop();
-  };
+    let startX = 0;
+    let endX = 0;
 
-  const closeAbout = () => {
-    setShowAbout(false);
-    goTop();
-  };
+    const handleTouchStart = (event) => {
+      startX = event.touches[0].clientX;
+    };
+
+    const handleTouchMove = (event) => {
+      endX = event.touches[0].clientX;
+    };
+
+    const handleTouchEnd = () => {
+      const distance = startX - endX;
+
+      if (Math.abs(distance) < 45) return;
+
+      if (distance > 0) {
+        showNextImage();
+      } else {
+        showPreviousImage();
+      }
+    };
+
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchmove", handleTouchMove, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd);
+
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [selectedImage, showNextImage, showPreviousImage]);
+
+  const NavLinks = () => (
+    <>
+      <a href="#services" onClick={closePages}>Services</a>
+      <button type="button" className="nav-link-button" onClick={openAbout}>About</button>
+      <button type="button" className="nav-link-button" onClick={openPortfolio}>Portfolio</button>
+      <a href="#projects" onClick={closePages}>Projects</a>
+      <a href="#credibility" onClick={closePages}>Credibility</a>
+      <a href="#contact" onClick={closePages}>Contact</a>
+    </>
+  );
 
   return (
     <div className="site">
@@ -162,7 +253,7 @@ export default function App() {
         className="scroll-drone drone-one"
         id="scrollDroneOne"
         title="DJI Air 3S"
-        aria-label="Open DJI Air 3S page"
+        aria-label="Open DJI Air 3S product page"
       />
 
       <a
@@ -172,7 +263,7 @@ export default function App() {
         className="scroll-drone drone-two"
         id="scrollDroneTwo"
         title="DJI Air 3S"
-        aria-label="Open DJI Air 3S page"
+        aria-label="Open DJI Air 3S product page"
       />
 
       <div className="orb orb-one" />
@@ -181,38 +272,41 @@ export default function App() {
 
       <header className="site-header">
         <div className="nav-wrap">
-          <button
-            type="button"
-            className="brand brand-button"
-            onClick={() => {
-              setShowAbout(false);
-              goTop();
-            }}
-          >
+          <button type="button" className="brand brand-button" onClick={goHome}>
             In<span>Sight</span>
             <small>Drone Flights</small>
           </button>
 
           <nav className="nav-links">
-            <a href="#services" onClick={() => setShowAbout(false)}>Services</a>
-            <button type="button" className="nav-link-button" onClick={openAbout}>About</button>
-            <a href="#projects" onClick={() => setShowAbout(false)}>Projects</a>
-            <a href="#credibility" onClick={() => setShowAbout(false)}>Credibility</a>
-            <a href="#work" onClick={() => setShowAbout(false)}>Work</a>
-            <a href="#contact" onClick={() => setShowAbout(false)}>Contact</a>
+            <NavLinks />
           </nav>
 
-          <a href="#contact" onClick={() => setShowAbout(false)} className="nav-cta">
+          <button
+            type="button"
+            className="mobile-menu-button"
+            onClick={() => setMobileMenuOpen((value) => !value)}
+            aria-label="Open mobile navigation"
+          >
+            <Menu size={22} />
+          </button>
+
+          <a href="#contact" onClick={closePages} className="nav-cta">
             Get a Quote
           </a>
         </div>
+
+        {mobileMenuOpen && (
+          <div className="mobile-menu">
+            <NavLinks />
+          </div>
+        )}
       </header>
 
       <main id="top">
         {showAbout ? (
           <section className="section about-page">
             <PremiumGlass className="about-panel">
-              <button type="button" className="about-back" onClick={closeAbout}>
+              <button type="button" className="about-back" onClick={goHome}>
                 <X size={18} /> Back Home
               </button>
 
@@ -246,19 +340,19 @@ export default function App() {
                 </div>
 
                 <div className="about-stat-grid">
-                  <a href="#credibility" onClick={closeAbout} className="about-stat">
+                  <a href="#credibility" onClick={goHome} className="about-stat">
                     <Plane />
                     <strong>Aviation Influence</strong>
                     <span>Raised around flight, weather, and navigation.</span>
                   </a>
 
-                  <a href="#work" onClick={closeAbout} className="about-stat">
+                  <a href="#portfolio" onClick={openPortfolio} className="about-stat">
                     <Camera />
                     <strong>Photography Background</strong>
                     <span>Composition, light, and storytelling matter.</span>
                   </a>
 
-                  <a href="#contact" onClick={closeAbout} className="about-stat">
+                  <a href="#contact" onClick={goHome} className="about-stat">
                     <BadgeCheck />
                     <strong>Self-Driven</strong>
                     <span>Homeschooled, 16, and taking college courses.</span>
@@ -266,6 +360,30 @@ export default function App() {
                 </div>
               </div>
             </PremiumGlass>
+          </section>
+        ) : showPortfolio ? (
+          <section id="portfolio" className="section portfolio-page">
+            <div className="portfolio-page-head">
+              <div className="section-heading">
+                <p>Portfolio</p>
+                <h2>Photo gallery built to grow over time.</h2>
+                <span>
+                  Click any image to expand it. On mobile, swipe left or right while fullscreen to move between photos.
+                </span>
+              </div>
+
+              <button type="button" className="about-back" onClick={goHome}>
+                <X size={18} /> Back Home
+              </button>
+            </div>
+
+            <div className="portfolio-clean-grid">
+              {portfolio.map((item) => (
+                <PremiumGlass key={item.image} className="portfolio-clean-card">
+                  <ImagePanel item={item} onClick={openImage} />
+                </PremiumGlass>
+              ))}
+            </div>
           </section>
         ) : (
           <>
@@ -289,29 +407,29 @@ export default function App() {
                     Request a Quote <ArrowRight size={18} />
                   </a>
 
-                  <a href="#work" className="secondary-btn">
+                  <button type="button" className="secondary-btn" onClick={openPortfolio}>
                     View Portfolio
-                  </a>
+                  </button>
                 </div>
               </div>
 
               <div className="hero-visual">
                 <PremiumGlass className="hero-main">
-                  <ImagePanel item={portfolio[0]} onClick={setSelectedImage} />
+                  <ImagePanel item={portfolio[0]} onClick={openImage} />
                 </PremiumGlass>
 
                 <PremiumGlass className="hero-card hero-card-right">
-                  <ImagePanel item={portfolio[3]} onClick={setSelectedImage} />
+                  <ImagePanel item={portfolio[3]} onClick={openImage} />
                 </PremiumGlass>
 
                 <PremiumGlass className="hero-card hero-card-left">
-                  <ImagePanel item={portfolio[1]} onClick={setSelectedImage} />
+                  <ImagePanel item={portfolio[1]} onClick={openImage} />
                 </PremiumGlass>
 
-                <a href="#work" className="hud-card hud-top">
+                <button type="button" className="hud-card hud-top" onClick={openPortfolio}>
                   <Aperture size={24} />
                   <span>4K aerial media</span>
-                </a>
+                </button>
 
                 <button type="button" className="hud-card hud-middle" onClick={openAbout}>
                   <Compass size={24} />
@@ -336,6 +454,7 @@ export default function App() {
                   <a
                     href={item.href}
                     key={item.title}
+                    onClick={item.href === "#portfolio" ? openPortfolio : undefined}
                     className={`premium-glass service-card ${index === 1 ? "offset-card" : ""}`}
                   >
                     <div className="icon-box">{item.icon}</div>
@@ -360,7 +479,12 @@ export default function App() {
 
                 <div className="project-orbit">
                   {projects.map((item) => (
-                    <a key={item.title} href={item.href} className="project-node">
+                    <a
+                      key={item.title}
+                      href={item.href}
+                      onClick={item.href === "#portfolio" ? openPortfolio : undefined}
+                      className="project-node"
+                    >
                       <div className="node-icon">{item.icon}</div>
                       <h3>{item.title}</h3>
                       <p>{item.text}</p>
@@ -398,56 +522,6 @@ export default function App() {
                   <p><MapPin /> Alaska-based service</p>
                   <p><ShieldCheck /> Safety-minded flight planning</p>
                 </PremiumGlass>
-              </div>
-            </section>
-
-            <section id="work" className="section">
-              <div className="section-heading center">
-                <p>Portfolio</p>
-                <h2>Recent aerial work</h2>
-              </div>
-
-              <div className="portfolio-grid">
-                <PremiumGlass className="portfolio-large">
-                  <ImagePanel item={portfolio[0]} onClick={setSelectedImage} />
-                </PremiumGlass>
-
-                <PremiumGlass>
-                  <ImagePanel item={portfolio[1]} onClick={setSelectedImage} />
-                </PremiumGlass>
-
-                <PremiumGlass>
-                  <ImagePanel item={portfolio[2]} onClick={setSelectedImage} />
-                </PremiumGlass>
-
-                <PremiumGlass className="portfolio-wide">
-                  <ImagePanel item={portfolio[3]} onClick={setSelectedImage} />
-                </PremiumGlass>
-
-                <PremiumGlass className="portfolio-wide">
-                  <ImagePanel item={portfolio[4]} onClick={setSelectedImage} />
-                </PremiumGlass>
-              </div>
-            </section>
-
-            <section className="section process">
-              <div className="section-heading">
-                <p>Process</p>
-                <h2>Simple from planning to delivery.</h2>
-              </div>
-
-              <div className="process-list">
-                {[
-                  "Tell me the project goal and location",
-                  "Plan weather, airspace, and shot timing",
-                  "Capture aerial photos or video safely",
-                  "Deliver polished files for web, listings, or social"
-                ].map((step, index) => (
-                  <a href="#contact" key={step} className="premium-glass process-step">
-                    <strong>{index + 1}</strong>
-                    <p><CheckCircle2 /> {step}</p>
-                  </a>
-                ))}
               </div>
             </section>
 
@@ -499,15 +573,40 @@ export default function App() {
             ×
           </button>
 
+          <button
+            type="button"
+            className="lightbox-arrow lightbox-prev"
+            onClick={(event) => {
+              event.stopPropagation();
+              showPreviousImage();
+            }}
+            aria-label="Previous image"
+          >
+            <ChevronLeft size={34} />
+          </button>
+
           <img
             src={selectedImage.image}
             alt={selectedImage.title}
             onClick={(event) => event.stopPropagation()}
           />
 
+          <button
+            type="button"
+            className="lightbox-arrow lightbox-next"
+            onClick={(event) => {
+              event.stopPropagation();
+              showNextImage();
+            }}
+            aria-label="Next image"
+          >
+            <ChevronRight size={34} />
+          </button>
+
           <div className="lightbox-caption">
             <p>{selectedImage.tag}</p>
             <h3>{selectedImage.title}</h3>
+            <span>Swipe or use arrows to browse</span>
           </div>
         </div>
       )}
