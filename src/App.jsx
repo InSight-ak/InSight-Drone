@@ -40,27 +40,27 @@ const services = [
     icon: <Home />,
     title: "Real Estate",
     text: "Clean aerial photos and short clips that help homes, cabins, land, and listings stand out.",
-    href: "#portfolio"
+    href: "portfolio"
   },
   {
     icon: <Sparkles />,
     title: "Marketing Content",
     text: "Visuals for tourism pages, reels, ads, local businesses, websites, and outdoor brands.",
-    href: "#portfolio"
+    href: "portfolio"
   },
   {
     icon: <ClipboardCheck />,
     title: "Property Checks",
     text: "Roof, land, building, and project overview shots from safer aerial angles.",
-    href: "#contact"
+    href: "contact"
   }
 ];
 
 const projects = [
-  { icon: <Building2 />, title: "Property Visuals", text: "Homes, lots, cabins, land, and listings.", href: "#portfolio" },
-  { icon: <Mountain />, title: "Tourism Media", text: "Scenic Alaska visuals for promotion.", href: "#portfolio" },
-  { icon: <TreePine />, title: "Outdoor Work", text: "Trails, events, recreation, and adventure.", href: "#contact" },
-  { icon: <Route />, title: "Site Context", text: "Aerial layout views for projects and locations.", href: "#contact" }
+  { icon: <Building2 />, title: "Property Visuals", text: "Homes, lots, cabins, land, and listings.", href: "portfolio" },
+  { icon: <Mountain />, title: "Tourism Media", text: "Scenic Alaska visuals for promotion.", href: "portfolio" },
+  { icon: <TreePine />, title: "Outdoor Work", text: "Trails, events, recreation, and adventure.", href: "contact" },
+  { icon: <Route />, title: "Site Context", text: "Aerial layout views for projects and locations.", href: "contact" }
 ];
 
 function PremiumGlass({ children, className = "" }) {
@@ -106,6 +106,11 @@ export default function App() {
     setMobileMenuOpen(false);
   };
 
+  const goHome = () => {
+    closePages();
+    scrollTop();
+  };
+
   const openAbout = () => {
     setShowAbout(true);
     setShowPortfolio(false);
@@ -120,9 +125,11 @@ export default function App() {
     scrollTop();
   };
 
-  const goHome = () => {
+  const goToContact = () => {
     closePages();
-    scrollTop();
+    setTimeout(() => {
+      document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
+    }, 50);
   };
 
   const openImage = (item) => {
@@ -131,15 +138,24 @@ export default function App() {
 
   const showNextImage = React.useCallback(() => {
     if (selectedIndex < 0) return;
-    const nextIndex = (selectedIndex + 1) % portfolio.length;
-    setSelectedImage(portfolio[nextIndex]);
+    setSelectedImage(portfolio[(selectedIndex + 1) % portfolio.length]);
   }, [selectedIndex]);
 
   const showPreviousImage = React.useCallback(() => {
     if (selectedIndex < 0) return;
-    const previousIndex = (selectedIndex - 1 + portfolio.length) % portfolio.length;
-    setSelectedImage(portfolio[previousIndex]);
+    setSelectedImage(portfolio[(selectedIndex - 1 + portfolio.length) % portfolio.length]);
   }, [selectedIndex]);
+
+  const handleDestination = (destination) => {
+    if (destination === "portfolio") {
+      openPortfolio();
+      return;
+    }
+
+    if (destination === "contact") {
+      goToContact();
+    }
+  };
 
   React.useEffect(() => {
     const droneOne = document.getElementById("scrollDroneOne");
@@ -173,7 +189,7 @@ export default function App() {
   }, []);
 
   React.useEffect(() => {
-    const closeOnEscape = (event) => {
+    const onKeyDown = (event) => {
       if (event.key === "Escape") {
         setSelectedImage(null);
         setShowAbout(false);
@@ -181,17 +197,12 @@ export default function App() {
         setMobileMenuOpen(false);
       }
 
-      if (selectedImage && event.key === "ArrowRight") {
-        showNextImage();
-      }
-
-      if (selectedImage && event.key === "ArrowLeft") {
-        showPreviousImage();
-      }
+      if (selectedImage && event.key === "ArrowRight") showNextImage();
+      if (selectedImage && event.key === "ArrowLeft") showPreviousImage();
     };
 
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [selectedImage, showNextImage, showPreviousImage]);
 
   React.useEffect(() => {
@@ -202,6 +213,7 @@ export default function App() {
 
     const handleTouchStart = (event) => {
       startX = event.touches[0].clientX;
+      endX = startX;
     };
 
     const handleTouchMove = (event) => {
@@ -210,14 +222,9 @@ export default function App() {
 
     const handleTouchEnd = () => {
       const distance = startX - endX;
-
       if (Math.abs(distance) < 45) return;
-
-      if (distance > 0) {
-        showNextImage();
-      } else {
-        showPreviousImage();
-      }
+      if (distance > 0) showNextImage();
+      else showPreviousImage();
     };
 
     window.addEventListener("touchstart", handleTouchStart, { passive: true });
@@ -233,12 +240,13 @@ export default function App() {
 
   const NavLinks = () => (
     <>
+      <button type="button" className="nav-link-button" onClick={goHome}>Home</button>
       <a href="#services" onClick={closePages}>Services</a>
       <button type="button" className="nav-link-button" onClick={openAbout}>About</button>
       <button type="button" className="nav-link-button" onClick={openPortfolio}>Portfolio</button>
       <a href="#projects" onClick={closePages}>Projects</a>
       <a href="#credibility" onClick={closePages}>Credibility</a>
-      <a href="#contact" onClick={closePages}>Contact</a>
+      <button type="button" className="nav-link-button" onClick={goToContact}>Contact</button>
     </>
   );
 
@@ -290,9 +298,9 @@ export default function App() {
             <Menu size={22} />
           </button>
 
-          <a href="#contact" onClick={closePages} className="nav-cta">
+          <button type="button" onClick={goToContact} className="nav-cta">
             Get a Quote
-          </a>
+          </button>
         </div>
 
         {mobileMenuOpen && (
@@ -340,23 +348,23 @@ export default function App() {
                 </div>
 
                 <div className="about-stat-grid">
-                  <a href="#credibility" onClick={goHome} className="about-stat">
+                  <button type="button" onClick={goHome} className="about-stat">
                     <Plane />
                     <strong>Aviation Influence</strong>
                     <span>Raised around flight, weather, and navigation.</span>
-                  </a>
+                  </button>
 
-                  <a href="#portfolio" onClick={openPortfolio} className="about-stat">
+                  <button type="button" onClick={openPortfolio} className="about-stat">
                     <Camera />
                     <strong>Photography Background</strong>
                     <span>Composition, light, and storytelling matter.</span>
-                  </a>
+                  </button>
 
-                  <a href="#contact" onClick={goHome} className="about-stat">
+                  <button type="button" onClick={goToContact} className="about-stat">
                     <BadgeCheck />
                     <strong>Self-Driven</strong>
                     <span>Homeschooled, 16, and taking college courses.</span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </PremiumGlass>
@@ -366,9 +374,9 @@ export default function App() {
             <div className="portfolio-page-head">
               <div className="section-heading">
                 <p>Portfolio</p>
-                <h2>Photo gallery built to grow over time.</h2>
+                <h2>Aerial portfolio.</h2>
                 <span>
-                  Click any image to expand it. On mobile, swipe left or right while fullscreen to move between photos.
+                  A clean gallery of aerial photos, property visuals, and Alaska scenery.
                 </span>
               </div>
 
@@ -403,9 +411,9 @@ export default function App() {
                 </p>
 
                 <div className="hero-actions">
-                  <a href="#contact" className="primary-btn">
+                  <button type="button" onClick={goToContact} className="primary-btn">
                     Request a Quote <ArrowRight size={18} />
-                  </a>
+                  </button>
 
                   <button type="button" className="secondary-btn" onClick={openPortfolio}>
                     View Portfolio
@@ -436,10 +444,10 @@ export default function App() {
                   <span>Alaska-based</span>
                 </button>
 
-                <a href="#contact" className="hud-card hud-bottom">
+                <button type="button" className="hud-card hud-bottom" onClick={goToContact}>
                   <Crosshair size={24} />
                   <span>Clean useful angles</span>
-                </a>
+                </button>
               </div>
             </section>
 
@@ -451,16 +459,16 @@ export default function App() {
 
               <div className="service-grid">
                 {services.map((item, index) => (
-                  <a
-                    href={item.href}
+                  <button
+                    type="button"
                     key={item.title}
-                    onClick={item.href === "#portfolio" ? openPortfolio : undefined}
+                    onClick={() => handleDestination(item.href)}
                     className={`premium-glass service-card ${index === 1 ? "offset-card" : ""}`}
                   >
                     <div className="icon-box">{item.icon}</div>
                     <h3>{item.title}</h3>
                     <p>{item.text}</p>
-                  </a>
+                  </button>
                 ))}
               </div>
             </section>
@@ -479,16 +487,16 @@ export default function App() {
 
                 <div className="project-orbit">
                   {projects.map((item) => (
-                    <a
+                    <button
+                      type="button"
                       key={item.title}
-                      href={item.href}
-                      onClick={item.href === "#portfolio" ? openPortfolio : undefined}
+                      onClick={() => handleDestination(item.href)}
                       className="project-node"
                     >
                       <div className="node-icon">{item.icon}</div>
                       <h3>{item.title}</h3>
                       <p>{item.text}</p>
-                    </a>
+                    </button>
                   ))}
                 </div>
               </PremiumGlass>
@@ -507,14 +515,14 @@ export default function App() {
               </div>
 
               <div className="cred-grid">
-                <a href="#contact" className="premium-glass cert-card">
+                <button type="button" onClick={goToContact} className="premium-glass cert-card">
                   <FileCheck size={62} />
                   <h3>FAA Part 107 Certified</h3>
                   <p>
                     FAA-certified commercial drone operator providing safe, legal,
                     and professional aerial services across Alaska.
                   </p>
-                </a>
+                </button>
 
                 <PremiumGlass className="cred-list">
                   <p><BadgeCheck /> FAA Part 107 Certified</p>
@@ -582,14 +590,12 @@ export default function App() {
             }}
             aria-label="Previous image"
           >
-            <ChevronLeft size={34} />
+            <ChevronLeft size={32} />
           </button>
 
-          <img
-            src={selectedImage.image}
-            alt={selectedImage.title}
-            onClick={(event) => event.stopPropagation()}
-          />
+          <div className="lightbox-image-wrap" onClick={(event) => event.stopPropagation()}>
+            <img src={selectedImage.image} alt={selectedImage.title} />
+          </div>
 
           <button
             type="button"
@@ -600,13 +606,12 @@ export default function App() {
             }}
             aria-label="Next image"
           >
-            <ChevronRight size={34} />
+            <ChevronRight size={32} />
           </button>
 
           <div className="lightbox-caption">
             <p>{selectedImage.tag}</p>
             <h3>{selectedImage.title}</h3>
-            <span>Swipe or use arrows to browse</span>
           </div>
         </div>
       )}
