@@ -40,13 +40,7 @@ button {
     radial-gradient(circle at 88% 18%, rgba(216, 199, 163, 0.13), transparent 31%),
     radial-gradient(circle at 50% 100%, rgba(52, 67, 76, 0.42), transparent 42%),
     linear-gradient(180deg, #080b10, #0e141b 42%, #07090d);
-  background-size:
-    96px 96px,
-    96px 96px,
-    auto,
-    auto,
-    auto,
-    auto;
+  background-size: 96px 96px, 96px 96px, auto, auto, auto, auto;
 }
 
 .orb {
@@ -561,10 +555,21 @@ button {
   line-height: 1.75;
 }
 
+.page-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+}
+
 .service-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
+}
+
+.service-page-grid {
+  margin-top: 30px;
 }
 
 .service-card {
@@ -578,14 +583,6 @@ button {
   transform: translateY(-8px);
   background: rgba(248, 250, 252, 0.075);
   border-color: rgba(216, 199, 163, 0.34);
-}
-
-.offset-card {
-  transform: translateY(42px);
-}
-
-.offset-card:hover {
-  transform: translateY(34px);
 }
 
 .icon-box,
@@ -740,21 +737,22 @@ button {
   display: grid;
   gap: 14px;
   padding: 26px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 26px;
-  background: rgba(11, 17, 24, 0.65);
-  backdrop-filter: blur(20px);
+  background: rgba(11, 17, 24, 0.85);
+  backdrop-filter: blur(14px);
 }
 
 .contact-form input,
 .contact-form textarea {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255,255,255,0.14);
   outline: none;
   border-radius: 18px;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.055);
-  color: white;
+  background: rgba(15, 23, 35, 0.96);
+  color: #ffffff;
+  font-size: 16px;
 }
 
 .contact-form textarea {
@@ -764,7 +762,7 @@ button {
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: #64748b;
+  color: rgba(255,255,255,0.45);
 }
 
 .contact-form input:focus,
@@ -789,7 +787,8 @@ button {
 }
 
 .about-page,
-.portfolio-page {
+.portfolio-page,
+.services-page {
   min-height: 760px;
 }
 
@@ -837,7 +836,7 @@ button {
 .about-stat-grid {
   grid-column: 1 / -1;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 18px;
 }
 
@@ -846,16 +845,9 @@ button {
   gap: 10px;
   padding: 22px;
   text-align: left;
-  cursor: pointer;
   border-radius: 24px;
   background: rgba(11, 17, 24, 0.58);
   border: 1px solid rgba(255,255,255,0.08);
-  transition: 220ms ease;
-}
-
-.about-stat:hover {
-  transform: translateY(-6px);
-  border-color: rgba(216,199,163,0.35);
 }
 
 .about-stat svg {
@@ -869,13 +861,6 @@ button {
 .about-stat span {
   color: #cbd5e1;
   line-height: 1.6;
-}
-
-.portfolio-page-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 30px;
-  align-items: flex-start;
 }
 
 .portfolio-clean-grid {
@@ -1154,11 +1139,6 @@ button {
     grid-template-columns: 1fr;
   }
 
-  .offset-card,
-  .offset-card:hover {
-    transform: none;
-  }
-
   .project-orbit {
     grid-template-columns: 1fr;
     min-height: auto;
@@ -1168,7 +1148,7 @@ button {
     height: 330px;
   }
 
-  .portfolio-page-head {
+  .page-head {
     display: grid;
   }
 
@@ -1247,6 +1227,11 @@ button {
 
   .portfolio-clean-card .image-panel {
     height: 280px;
+  }
+
+  .contact-form {
+    padding: 18px;
+    background: rgba(7, 11, 17, 0.95);
   }
 
   .lightbox {

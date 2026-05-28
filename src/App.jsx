@@ -5,7 +5,6 @@ import {
   BadgeCheck,
   Building2,
   Camera,
-  CheckCircle2,
   ClipboardCheck,
   Compass,
   Crosshair,
@@ -39,35 +38,55 @@ const services = [
   {
     icon: <Home />,
     title: "Real Estate",
-    text: "Clean aerial photos and short clips that help homes, cabins, land, and listings stand out.",
-    href: "portfolio"
+    text: "Clean aerial photos and short clips for homes, cabins, land, and listings.",
+    destination: "portfolio"
   },
   {
     icon: <Sparkles />,
     title: "Marketing Content",
-    text: "Visuals for tourism pages, reels, ads, local businesses, websites, and outdoor brands.",
-    href: "portfolio"
+    text: "Visuals for tourism pages, reels, ads, websites, and local businesses.",
+    destination: "portfolio"
   },
   {
     icon: <ClipboardCheck />,
     title: "Property Checks",
     text: "Roof, land, building, and project overview shots from safer aerial angles.",
-    href: "contact"
+    destination: "contact"
   }
 ];
 
 const projects = [
-  { icon: <Building2 />, title: "Property Visuals", text: "Homes, lots, cabins, land, and listings.", href: "portfolio" },
-  { icon: <Mountain />, title: "Tourism Media", text: "Scenic Alaska visuals for promotion.", href: "portfolio" },
-  { icon: <TreePine />, title: "Outdoor Work", text: "Trails, events, recreation, and adventure.", href: "contact" },
-  { icon: <Route />, title: "Site Context", text: "Aerial layout views for projects and locations.", href: "contact" }
+  {
+    icon: <Building2 />,
+    title: "Property Visuals",
+    text: "Homes, lots, cabins, land, and listings.",
+    destination: "portfolio"
+  },
+  {
+    icon: <Mountain />,
+    title: "Tourism Media",
+    text: "Scenic Alaska visuals for promotion.",
+    destination: "portfolio"
+  },
+  {
+    icon: <TreePine />,
+    title: "Outdoor Work",
+    text: "Trails, events, recreation, and adventure.",
+    destination: "contact"
+  },
+  {
+    icon: <Route />,
+    title: "Site Context",
+    text: "Aerial layout views for projects and locations.",
+    destination: "contact"
+  }
 ];
 
 function PremiumGlass({ children, className = "" }) {
   return <div className={`premium-glass ${className}`}>{children}</div>;
 }
 
-function ImagePanel({ item, className = "", onClick }) {
+function ImagePanel({ item, onClick, className = "" }) {
   return (
     <button
       type="button"
@@ -88,52 +107,38 @@ function ImagePanel({ item, className = "", onClick }) {
 
 export default function App() {
   const [selectedImage, setSelectedImage] = React.useState(null);
-  const [showAbout, setShowAbout] = React.useState(false);
-  const [showPortfolio, setShowPortfolio] = React.useState(false);
+  const [activePage, setActivePage] = React.useState("home");
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   const selectedIndex = selectedImage
     ? portfolio.findIndex((item) => item.image === selectedImage.image)
     : -1;
 
-  const scrollTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
+  const scrollTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
 
-  const closePages = () => {
-    setShowAbout(false);
-    setShowPortfolio(false);
-    setMobileMenuOpen(false);
-  };
-
-  const goHome = () => {
-    closePages();
-    scrollTop();
-  };
-
-  const openAbout = () => {
-    setShowAbout(true);
-    setShowPortfolio(false);
-    setMobileMenuOpen(false);
-    scrollTop();
-  };
-
-  const openPortfolio = () => {
-    setShowPortfolio(true);
-    setShowAbout(false);
+  const setPage = (page) => {
+    setActivePage(page);
     setMobileMenuOpen(false);
     scrollTop();
   };
 
   const goToContact = () => {
-    closePages();
+    setActivePage("home");
+    setMobileMenuOpen(false);
     setTimeout(() => {
       document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
     }, 50);
   };
 
-  const openImage = (item) => {
-    setSelectedImage(item);
+  const handleDestination = (destination) => {
+    if (destination === "portfolio") {
+      setPage("portfolio");
+      return;
+    }
+
+    if (destination === "contact") {
+      goToContact();
+    }
   };
 
   const showNextImage = React.useCallback(() => {
@@ -145,17 +150,6 @@ export default function App() {
     if (selectedIndex < 0) return;
     setSelectedImage(portfolio[(selectedIndex - 1 + portfolio.length) % portfolio.length]);
   }, [selectedIndex]);
-
-  const handleDestination = (destination) => {
-    if (destination === "portfolio") {
-      openPortfolio();
-      return;
-    }
-
-    if (destination === "contact") {
-      goToContact();
-    }
-  };
 
   React.useEffect(() => {
     const droneOne = document.getElementById("scrollDroneOne");
@@ -192,8 +186,6 @@ export default function App() {
     const onKeyDown = (event) => {
       if (event.key === "Escape") {
         setSelectedImage(null);
-        setShowAbout(false);
-        setShowPortfolio(false);
         setMobileMenuOpen(false);
       }
 
@@ -223,6 +215,7 @@ export default function App() {
     const handleTouchEnd = () => {
       const distance = startX - endX;
       if (Math.abs(distance) < 45) return;
+
       if (distance > 0) showNextImage();
       else showPreviousImage();
     };
@@ -240,12 +233,10 @@ export default function App() {
 
   const NavLinks = () => (
     <>
-      <button type="button" className="nav-link-button" onClick={goHome}>Home</button>
-      <a href="#services" onClick={closePages}>Services</a>
-      <button type="button" className="nav-link-button" onClick={openAbout}>About</button>
-      <button type="button" className="nav-link-button" onClick={openPortfolio}>Portfolio</button>
-      <a href="#projects" onClick={closePages}>Projects</a>
-      <a href="#credibility" onClick={closePages}>Credibility</a>
+      <button type="button" className="nav-link-button" onClick={() => setPage("home")}>Home</button>
+      <button type="button" className="nav-link-button" onClick={() => setPage("services")}>Services</button>
+      <button type="button" className="nav-link-button" onClick={() => setPage("about")}>About</button>
+      <button type="button" className="nav-link-button" onClick={() => setPage("portfolio")}>Portfolio</button>
       <button type="button" className="nav-link-button" onClick={goToContact}>Contact</button>
     </>
   );
@@ -280,7 +271,7 @@ export default function App() {
 
       <header className="site-header">
         <div className="nav-wrap">
-          <button type="button" className="brand brand-button" onClick={goHome}>
+          <button type="button" className="brand brand-button" onClick={() => setPage("home")}>
             In<span>Sight</span>
             <small>Drone Flights</small>
           </button>
@@ -311,113 +302,122 @@ export default function App() {
       </header>
 
       <main id="top">
-        {showAbout ? (
+        {activePage === "about" && (
           <section className="section about-page">
             <PremiumGlass className="about-panel">
-              <button type="button" className="about-back" onClick={goHome}>
+              <button type="button" className="about-back" onClick={() => setPage("home")}>
                 <X size={18} /> Back Home
               </button>
 
               <div className="about-layout">
                 <div className="section-heading">
                   <p>About Me</p>
-                  <section id="about" className="section about-page">
-  <PremiumGlass className="about-panel">
-    <button type="button" className="about-back" onClick={goHome}>
-      <X size={18} /> Back Home
-    </button>
+                  <h2>Built from aviation, photography, and curiosity.</h2>
+                </div>
 
-```
-<div className="about-layout">
-  <div className="section-heading">
-    <p>About Me</p>
-    <h2>Built from aviation, photography, and curiosity.</h2>
-  </div>
+                <div className="about-copy">
+                  <p>
+                    I grew up around aviation and photography, which naturally shaped the way I see the world today.
+                    My dad works as a pilot, so from an early age I was exposed to flight planning, weather,
+                    navigation, and the unique perspective that comes from seeing Alaska from above.
+                  </p>
 
-  <div className="about-copy">
-    <p>
-      I grew up around aviation and photography, which naturally shaped the way I see the world today.
-      My dad works as a pilot, so from an early age I was exposed to flight planning, weather,
-      navigation, and the unique perspective that comes from seeing Alaska from above.
-    </p>
+                  <p>
+                    At the same time, my mom’s background in photography introduced me to composition, lighting,
+                    storytelling, and the importance of capturing moments in a meaningful way.
+                  </p>
 
-    <p>
-      At the same time, my mom’s background in photography introduced me to composition, lighting,
-      storytelling, and the importance of capturing moments in a meaningful way.
-    </p>
+                  <p>
+                    I’m currently a homeschooled student taking college courses while building hands-on experience
+                    in aerial media and drone operations. Earning my FAA Part 107 certification at 16 pushed me
+                    to become more self-driven, detail-oriented, and responsible in the way I approach both flying
+                    and client work.
+                  </p>
 
-    <p>
-      I’m currently a homeschooled student taking college courses while building hands-on experience
-      in aerial media and drone operations. Earning my FAA Part 107 certification at 16 pushed me
-      to become more self-driven, detail-oriented, and responsible in the way I approach both flying
-      and client work.
-    </p>
+                  <p>
+                    Right now my focus is simple: continue learning, build real-world experience, and create clean,
+                    professional aerial media for businesses, outdoor projects, tourism, and Alaska communities.
+                  </p>
 
-    <p>
-      Right now my focus is simple: continue learning, build real-world experience, and create clean,
-      professional aerial media for businesses, outdoor projects, tourism, and Alaska communities.
-    </p>
+                  <p>
+                    I’m especially interested in opportunities involving aviation, outdoor events, recreation,
+                    tourism, and creative storytelling across Alaska.
+                  </p>
+                </div>
 
-    <p>
-      I’m especially interested in opportunities involving aviation, outdoor events, recreation,
-      tourism, and creative storytelling across Alaska.
-    </p>
-  </div>
+                <div className="about-stat-grid">
+                  <div className="about-stat">
+                    <Plane />
+                    <strong>Aviation Influence</strong>
+                    <span>Raised around flight, weather, navigation, and aviation culture.</span>
+                  </div>
 
-  <div className="about-stat-grid">
-    <div className="about-stat">
-      <Plane />
-      <strong>Aviation Influence</strong>
-      <span>
-        Raised around flight, weather, navigation, and aviation culture.
-      </span>
-    </div>
+                  <div className="about-stat">
+                    <Camera />
+                    <strong>Photography Background</strong>
+                    <span>Learning composition, light, storytelling, and visual detail from an early age.</span>
+                  </div>
 
-    <div className="about-stat">
-      <Camera />
-      <strong>Photography Background</strong>
-      <span>
-        Learning composition, light, storytelling, and visual detail from an early age.
-      </span>
-    </div>
+                  <div className="about-stat">
+                    <BadgeCheck />
+                    <strong>FAA Part 107 Certified</strong>
+                    <span>Licensed commercial drone operator focused on safe and professional aerial media.</span>
+                  </div>
 
-    <div className="about-stat">
-      <BadgeCheck />
-      <strong>FAA Part 107 Certified</strong>
-      <span>
-        Licensed commercial drone operator focused on safe and professional aerial media.
-      </span>
-    </div>
-
-    <div className="about-stat">
-      <Mountain />
-      <strong>Growing Through Experience</strong>
-      <span>
-        Building real-world experience through outdoor projects, local businesses,
-        and creative work across Alaska.
-      </span>
-    </div>
-  </div>
-</div>
-```
-
-  </PremiumGlass>
-</section>
-
+                  <div className="about-stat">
+                    <Mountain />
+                    <strong>Growing Through Experience</strong>
+                    <span>Building real-world experience through outdoor projects, local businesses, and creative work across Alaska.</span>
+                  </div>
+                </div>
+              </div>
             </PremiumGlass>
           </section>
-        ) : showPortfolio ? (
-          <section id="portfolio" className="section portfolio-page">
-            <div className="portfolio-page-head">
+        )}
+
+        {activePage === "services" && (
+          <section className="section services-page">
+            <div className="page-head">
               <div className="section-heading">
-                <p>Portfolio</p>
-                <h2>Aerial portfolio.</h2>
+                <p>Services</p>
+                <h2>Aerial media without the overdone sales pitch.</h2>
                 <span>
-                  A clean gallery of aerial photos, property visuals, and Alaska scenery.
+                  Simple drone services for properties, tourism, businesses, outdoor projects, and visual storytelling across Alaska.
                 </span>
               </div>
 
-              <button type="button" className="about-back" onClick={goHome}>
+              <button type="button" className="about-back" onClick={() => setPage("home")}>
+                <X size={18} /> Back Home
+              </button>
+            </div>
+
+            <div className="service-grid service-page-grid">
+              {services.map((item) => (
+                <button
+                  type="button"
+                  key={item.title}
+                  onClick={() => handleDestination(item.destination)}
+                  className="premium-glass service-card"
+                >
+                  <div className="icon-box">{item.icon}</div>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </button>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activePage === "portfolio" && (
+          <section id="portfolio" className="section portfolio-page">
+            <div className="page-head">
+              <div className="section-heading">
+                <p>Portfolio</p>
+                <h2>Aerial portfolio.</h2>
+                <span>A clean gallery of aerial photos, property visuals, and Alaska scenery.</span>
+              </div>
+
+              <button type="button" className="about-back" onClick={() => setPage("home")}>
                 <X size={18} /> Back Home
               </button>
             </div>
@@ -425,12 +425,14 @@ export default function App() {
             <div className="portfolio-clean-grid">
               {portfolio.map((item) => (
                 <PremiumGlass key={item.image} className="portfolio-clean-card">
-                  <ImagePanel item={item} onClick={openImage} />
+                  <ImagePanel item={item} onClick={setSelectedImage} />
                 </PremiumGlass>
               ))}
             </div>
           </section>
-        ) : (
+        )}
+
+        {activePage === "home" && (
           <>
             <section className="hero section">
               <div className="hero-copy">
@@ -452,7 +454,7 @@ export default function App() {
                     Request a Quote <ArrowRight size={18} />
                   </button>
 
-                  <button type="button" className="secondary-btn" onClick={openPortfolio}>
+                  <button type="button" className="secondary-btn" onClick={() => setPage("portfolio")}>
                     View Portfolio
                   </button>
                 </div>
@@ -460,23 +462,23 @@ export default function App() {
 
               <div className="hero-visual">
                 <PremiumGlass className="hero-main">
-                  <ImagePanel item={portfolio[0]} onClick={openImage} />
+                  <ImagePanel item={portfolio[0]} onClick={setSelectedImage} />
                 </PremiumGlass>
 
                 <PremiumGlass className="hero-card hero-card-right">
-                  <ImagePanel item={portfolio[3]} onClick={openImage} />
+                  <ImagePanel item={portfolio[3]} onClick={setSelectedImage} />
                 </PremiumGlass>
 
                 <PremiumGlass className="hero-card hero-card-left">
-                  <ImagePanel item={portfolio[1]} onClick={openImage} />
+                  <ImagePanel item={portfolio[1]} onClick={setSelectedImage} />
                 </PremiumGlass>
 
-                <button type="button" className="hud-card hud-top" onClick={openPortfolio}>
+                <button type="button" className="hud-card hud-top" onClick={() => setPage("portfolio")}>
                   <Aperture size={24} />
                   <span>4K aerial media</span>
                 </button>
 
-                <button type="button" className="hud-card hud-middle" onClick={openAbout}>
+                <button type="button" className="hud-card hud-middle" onClick={() => setPage("about")}>
                   <Compass size={24} />
                   <span>Alaska-based</span>
                 </button>
@@ -485,28 +487,6 @@ export default function App() {
                   <Crosshair size={24} />
                   <span>Clean useful angles</span>
                 </button>
-              </div>
-            </section>
-
-            <section id="services" className="section">
-              <div className="section-heading center">
-                <p>Services</p>
-                <h2>Aerial media without the overdone sales pitch.</h2>
-              </div>
-
-              <div className="service-grid">
-                {services.map((item, index) => (
-                  <button
-                    type="button"
-                    key={item.title}
-                    onClick={() => handleDestination(item.href)}
-                    className={`premium-glass service-card ${index === 1 ? "offset-card" : ""}`}
-                  >
-                    <div className="icon-box">{item.icon}</div>
-                    <h3>{item.title}</h3>
-                    <p>{item.text}</p>
-                  </button>
-                ))}
               </div>
             </section>
 
@@ -527,7 +507,7 @@ export default function App() {
                     <button
                       type="button"
                       key={item.title}
-                      onClick={() => handleDestination(item.href)}
+                      onClick={() => handleDestination(item.destination)}
                       className="project-node"
                     >
                       <div className="node-icon">{item.icon}</div>
