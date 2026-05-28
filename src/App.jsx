@@ -321,52 +321,89 @@ export default function App() {
               <div className="about-layout">
                 <div className="section-heading">
                   <p>About Me</p>
-                  <h2>Built from aviation, photography, and self-driven work.</h2>
-                </div>
+                  <section id="about" className="section about-page">
+  <PremiumGlass className="about-panel">
+    <button type="button" className="about-back" onClick={goHome}>
+      <X size={18} /> Back Home
+    </button>
 
-                <div className="about-copy">
-                  <p>
-                    I grew up around aviation and photography, which naturally shaped the way I see the world today.
-                    My dad worked as a pilot, and from an early age I was exposed to aviation, weather, navigation,
-                    and the unique perspective that comes from seeing landscapes from above.
-                  </p>
+```
+<div className="about-layout">
+  <div className="section-heading">
+    <p>About Me</p>
+    <h2>Built from aviation, photography, and curiosity.</h2>
+  </div>
 
-                  <p>
-                    At the same time, my mom’s background in photography introduced me to composition, lighting,
-                    storytelling, and the importance of capturing moments in a meaningful way.
-                  </p>
+  <div className="about-copy">
+    <p>
+      I grew up around aviation and photography, which naturally shaped the way I see the world today.
+      My dad works as a pilot, so from an early age I was exposed to flight planning, weather,
+      navigation, and the unique perspective that comes from seeing Alaska from above.
+    </p>
 
-                  <p>
-                    I’m also a homeschooled student currently taking college courses at 16 years old, which has pushed
-                    me to become self-driven and independent.
-                  </p>
+    <p>
+      At the same time, my mom’s background in photography introduced me to composition, lighting,
+      storytelling, and the importance of capturing moments in a meaningful way.
+    </p>
 
-                  <p>
-                    My focus is simple: create professional aerial media with attention to detail, strong communication,
-                    and a genuine passion for both aviation and photography.
-                  </p>
-                </div>
+    <p>
+      I’m currently a homeschooled student taking college courses while building hands-on experience
+      in aerial media and drone operations. Earning my FAA Part 107 certification at 16 pushed me
+      to become more self-driven, detail-oriented, and responsible in the way I approach both flying
+      and client work.
+    </p>
 
-                <div className="about-stat-grid">
-                  <button type="button" onClick={goHome} className="about-stat">
-                    <Plane />
-                    <strong>Aviation Influence</strong>
-                    <span>Raised around flight, weather, and navigation.</span>
-                  </button>
+    <p>
+      Right now my focus is simple: continue learning, build real-world experience, and create clean,
+      professional aerial media for businesses, outdoor projects, tourism, and Alaska communities.
+    </p>
 
-                  <button type="button" onClick={openPortfolio} className="about-stat">
-                    <Camera />
-                    <strong>Photography Background</strong>
-                    <span>Composition, light, and storytelling matter.</span>
-                  </button>
+    <p>
+      I’m especially interested in opportunities involving aviation, outdoor events, recreation,
+      tourism, and creative storytelling across Alaska.
+    </p>
+  </div>
 
-                  <button type="button" onClick={goToContact} className="about-stat">
-                    <BadgeCheck />
-                    <strong>Self-Driven</strong>
-                    <span>Homeschooled, 16, and taking college courses.</span>
-                  </button>
-                </div>
-              </div>
+  <div className="about-stat-grid">
+    <div className="about-stat">
+      <Plane />
+      <strong>Aviation Influence</strong>
+      <span>
+        Raised around flight, weather, navigation, and aviation culture.
+      </span>
+    </div>
+
+    <div className="about-stat">
+      <Camera />
+      <strong>Photography Background</strong>
+      <span>
+        Learning composition, light, storytelling, and visual detail from an early age.
+      </span>
+    </div>
+
+    <div className="about-stat">
+      <BadgeCheck />
+      <strong>FAA Part 107 Certified</strong>
+      <span>
+        Licensed commercial drone operator focused on safe and professional aerial media.
+      </span>
+    </div>
+
+    <div className="about-stat">
+      <Mountain />
+      <strong>Growing Through Experience</strong>
+      <span>
+        Building real-world experience through outdoor projects, local businesses,
+        and creative work across Alaska.
+      </span>
+    </div>
+  </div>
+</div>
+```
+
+  </PremiumGlass>
+</section>
+
             </PremiumGlass>
           </section>
         ) : showPortfolio ? (
