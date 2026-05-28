@@ -105,16 +105,6 @@ function ImagePanel({ item, onClick, className = "" }) {
   );
 }
 
-function BrandMark({ onClick }) {
-  return (
-    <button type="button" className="brand brand-button" onClick={onClick} aria-label="Go home">
-      <span className="brand-orbit brand-orbit-one"></span>
-      <span className="brand-orbit brand-orbit-two"></span>
-      <img src="/images/insight-logo.png" alt="InSight Drone Flights" className="brand-logo" />
-    </button>
-  );
-}
-
 export default function App() {
   const [selectedImage, setSelectedImage] = React.useState(null);
   const [activePage, setActivePage] = React.useState("home");
@@ -164,13 +154,10 @@ export default function App() {
   React.useEffect(() => {
     const droneOne = document.getElementById("scrollDroneOne");
     const droneTwo = document.getElementById("scrollDroneTwo");
-    const root = document.documentElement;
 
     const moveEffects = () => {
       const maxScroll = document.body.scrollHeight - window.innerHeight;
       const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-
-      root.style.setProperty("--scroll-spin", `${progress * 520}deg`);
 
       if (droneOne) {
         const x = progress * (window.innerWidth + 240) - 140;
@@ -284,7 +271,10 @@ export default function App() {
 
       <header className="site-header">
         <div className="nav-wrap">
-          <BrandMark onClick={() => setPage("home")} />
+          <button type="button" className="brand brand-button" onClick={() => setPage("home")}>
+            In<span>Sight</span>
+            <small>Drone Flights</small>
+          </button>
 
           <nav className="nav-links">
             <NavLinks />

@@ -799,8 +799,8 @@ button {
 }
 
 .about-panel {
-  width: min(980px, 100%);
-  padding: 52px;
+  width: min(1120px, 100%);
+  padding: 42px;
 }
 
 .about-back {
@@ -817,8 +817,31 @@ button {
 
 .about-layout {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 38px;
+  grid-template-columns: 0.88fr 1.12fr;
+  gap: 34px;
+  align-items: start;
+}
+
+.about-photo-card {
+  position: sticky;
+  top: 110px;
+  overflow: hidden;
+  border-radius: 28px;
+  min-height: 560px;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 28px 80px rgba(0,0,0,0.38);
+}
+
+.about-photo-card img {
+  width: 100%;
+  height: 100%;
+  min-height: 560px;
+  display: block;
+  object-fit: cover;
+}
+
+.about-text-stack {
+  min-width: 0;
 }
 
 .about-copy {
@@ -1152,6 +1175,16 @@ button {
     display: grid;
   }
 
+  .about-photo-card {
+    position: relative;
+    top: auto;
+    min-height: 420px;
+  }
+
+  .about-photo-card img {
+    min-height: 420px;
+  }
+
   .scroll-drone {
     width: 76px;
     height: 76px;
@@ -1232,6 +1265,14 @@ button {
   .contact-form {
     padding: 18px;
     background: rgba(7, 11, 17, 0.95);
+  }
+
+  .about-photo-card {
+    min-height: 360px;
+  }
+
+  .about-photo-card img {
+    min-height: 360px;
   }
 
   .lightbox {
