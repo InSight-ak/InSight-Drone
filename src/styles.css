@@ -40,13 +40,7 @@ button {
     radial-gradient(circle at 88% 18%, rgba(216, 199, 163, 0.13), transparent 31%),
     radial-gradient(circle at 50% 100%, rgba(52, 67, 76, 0.42), transparent 42%),
     linear-gradient(180deg, #080b10, #0e141b 42%, #07090d);
-  background-size:
-    96px 96px,
-    96px 96px,
-    auto,
-    auto,
-    auto,
-    auto;
+  background-size: 96px 96px, 96px 96px, auto, auto, auto, auto;
 }
 
 .orb {
@@ -54,8 +48,7 @@ button {
   z-index: 0;
   border-radius: 999px;
   filter: blur(78px);
-  pointer-events: auto;
-cursor: pointer;
+  pointer-events: none;
 }
 
 .orb-one {
@@ -399,13 +392,12 @@ cursor: pointer;
   align-items: center;
   gap: 12px;
   padding: 14px 16px;
-  border: 0;
+  border: 1px solid rgba(255, 255, 255, 0.09);
   border-radius: 24px;
   color: white;
   font-size: 14px;
   font-weight: 950;
   background: rgba(248, 250, 252, 0.055);
-  border: 1px solid rgba(255, 255, 255, 0.09);
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.34);
   backdrop-filter: blur(24px);
   cursor: pointer;
@@ -940,7 +932,12 @@ cursor: pointer;
   z-index: 9999;
   pointer-events: auto;
   cursor: pointer;
+  transition: transform 0.08s linear;
+  filter:
+    drop-shadow(0 16px 36px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 0 18px rgba(216, 199, 163, 0.18));
 }
+
 .drone-one {
   top: 20%;
   left: -140px;
@@ -956,6 +953,7 @@ cursor: pointer;
   content: "";
   position: absolute;
   inset: 0;
+  pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23d8c7a3' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='45' cy='45' r='18'/%3E%3Ccircle cx='155' cy='45' r='18'/%3E%3Ccircle cx='45' cy='155' r='18'/%3E%3Ccircle cx='155' cy='155' r='18'/%3E%3Cline x1='60' y1='60' x2='88' y2='88'/%3E%3Cline x1='140' y1='60' x2='112' y2='88'/%3E%3Cline x1='60' y1='140' x2='88' y2='112'/%3E%3Cline x1='140' y1='140' x2='112' y2='112'/%3E%3Crect x='78' y='78' width='44' height='44' rx='10'/%3E%3C/g%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
@@ -966,6 +964,7 @@ cursor: pointer;
   content: "";
   position: absolute;
   inset: 4px;
+  pointer-events: none;
   background:
     radial-gradient(circle at 22% 22%, rgba(216,199,163,.9) 0 3px, transparent 4px),
     radial-gradient(circle at 78% 22%, rgba(216,199,163,.9) 0 3px, transparent 4px),
@@ -1093,29 +1092,62 @@ cursor: pointer;
 }
 
 @media (max-width: 620px) {
-  .nav-cta {
-    display: none;
+  .site {
+    background-size: 72px 72px, 72px 72px, auto, auto, auto, auto;
   }
 
-  .section,
-  .nav-wrap {
+  .nav-wrap,
+  .section {
     width: min(100% - 28px, 1180px);
   }
 
+  .nav-wrap {
+    padding: 14px 0;
+  }
+
+  .brand {
+    font-size: 25px;
+  }
+
+  .brand small {
+    font-size: 8px;
+    letter-spacing: 0.32em;
+  }
+
+  .nav-cta {
+    display: inline-flex;
+    padding: 10px 14px;
+    font-size: 12px;
+  }
+
   .section {
-    padding: 66px 0;
+    padding: 58px 0;
+  }
+
+  .hero {
+    display: grid;
+    gap: 34px;
+    padding-top: 46px;
+  }
+
+  .eyebrow {
+    font-size: 12px;
+    padding: 9px 12px;
   }
 
   .hero h1 {
-    font-size: 58px;
+    font-size: clamp(50px, 16vw, 72px);
+    letter-spacing: -0.075em;
   }
 
   .hero-copy > p {
     font-size: 17px;
+    line-height: 1.65;
   }
 
   .hero-actions {
     flex-direction: column;
+    margin-top: 28px;
   }
 
   .primary-btn,
@@ -1124,40 +1156,134 @@ cursor: pointer;
   }
 
   .hero-visual {
-    min-height: 460px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    min-height: auto;
+    perspective: none;
   }
 
-  .hero-main {
-    left: 0;
-    top: 42px;
-    width: 88%;
+  .hero-main,
+  .hero-card,
+  .hero-card-right,
+  .hero-card-left {
+    position: relative;
+    inset: auto;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    opacity: 1;
+    transform: none;
+    padding: 10px;
   }
 
-  .hero-main .image-panel {
-    height: 330px;
+  .hero-main:hover,
+  .hero-card:hover {
+    transform: translateY(-3px);
   }
 
-  .hero-card {
-    display: none;
+  .hero-main .image-panel,
+  .hero-card .image-panel {
+    height: 245px;
   }
 
   .hud-card {
-    font-size: 12px;
+    position: relative;
+    inset: auto;
+    width: 100%;
+    justify-content: center;
+    padding: 13px 15px;
   }
 
-  .hud-middle,
-  .hud-bottom {
-    display: none;
+  .section-heading h2 {
+    font-size: clamp(36px, 11vw, 52px);
+  }
+
+  .section-heading span {
+    font-size: 16px;
+  }
+
+  .service-grid,
+  .project-orbit,
+  .cred-grid,
+  .portfolio-grid,
+  .process-list,
+  .about-stat-grid {
+    gap: 16px;
+  }
+
+  .service-card,
+  .project-node,
+  .cert-card,
+  .cred-list,
+  .process-step {
+    padding: 24px;
   }
 
   .projects-panel,
   .contact-panel,
   .about-panel {
-    padding: 26px;
+    padding: 24px;
+    border-radius: 26px;
   }
 
-  .scroll-drone,
+  .portfolio-grid {
+    grid-auto-rows: 265px;
+  }
+
+  .process {
+    gap: 24px;
+  }
+
+  .contact-panel {
+    gap: 28px;
+  }
+
+  .about-page {
+    min-height: auto;
+    align-items: flex-start;
+  }
+
+  .about-copy p {
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  .scroll-drone {
+    display: block;
+    width: 68px;
+    height: 68px;
+  }
+
+  .drone-one {
+    top: 18%;
+    left: -86px;
+  }
+
+  .drone-two {
+    top: -82px;
+    right: -82px;
+    opacity: 0.55;
+  }
+
   .scroll-stars {
-    display: none;
+    display: block;
+    opacity: 0.2;
+  }
+
+  .lightbox {
+    padding: 18px;
+  }
+
+  .lightbox img {
+    max-width: 94vw;
+    max-height: 76vh;
+    border-radius: 18px;
+  }
+
+  .lightbox-caption h3 {
+    font-size: 18px;
   }
 }
