@@ -105,6 +105,16 @@ function ImagePanel({ item, onClick, className = "" }) {
   );
 }
 
+function BrandMark({ onClick }) {
+  return (
+    <button type="button" className="brand brand-button" onClick={onClick} aria-label="Go home">
+      <span className="brand-orbit brand-orbit-one"></span>
+      <span className="brand-orbit brand-orbit-two"></span>
+      <img src="/images/insight-logo.png" alt="InSight Drone Flights" className="brand-logo" />
+    </button>
+  );
+}
+
 export default function App() {
   const [selectedImage, setSelectedImage] = React.useState(null);
   const [activePage, setActivePage] = React.useState("home");
@@ -154,10 +164,13 @@ export default function App() {
   React.useEffect(() => {
     const droneOne = document.getElementById("scrollDroneOne");
     const droneTwo = document.getElementById("scrollDroneTwo");
+    const root = document.documentElement;
 
     const moveEffects = () => {
       const maxScroll = document.body.scrollHeight - window.innerHeight;
       const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+
+      root.style.setProperty("--scroll-spin", `${progress * 520}deg`);
 
       if (droneOne) {
         const x = progress * (window.innerWidth + 240) - 140;
@@ -271,10 +284,7 @@ export default function App() {
 
       <header className="site-header">
         <div className="nav-wrap">
-          <button type="button" className="brand brand-button" onClick={() => setPage("home")}>
-            In<span>Sight</span>
-            <small>Drone Flights</small>
-          </button>
+          <BrandMark onClick={() => setPage("home")} />
 
           <nav className="nav-links">
             <NavLinks />
@@ -310,39 +320,45 @@ export default function App() {
               </button>
 
               <div className="about-layout">
-                <div className="section-heading">
-                  <p>About Me</p>
-                  <h2>Built from aviation, photography, and curiosity.</h2>
+                <div className="about-photo-card">
+                  <img src="/images/about-drone.png" alt="Drone pilot with DJI Air 3S in Alaska" />
                 </div>
 
-                <div className="about-copy">
-                  <p>
-                    I grew up around aviation and photography, which naturally shaped the way I see the world today.
-                    My dad works as a pilot, so from an early age I was exposed to flight planning, weather,
-                    navigation, and the unique perspective that comes from seeing Alaska from above.
-                  </p>
+                <div className="about-text-stack">
+                  <div className="section-heading">
+                    <p>About Me</p>
+                    <h2>Built from aviation, photography, and curiosity.</h2>
+                  </div>
 
-                  <p>
-                    At the same time, my mom’s background in photography introduced me to composition, lighting,
-                    storytelling, and the importance of capturing moments in a meaningful way.
-                  </p>
+                  <div className="about-copy">
+                    <p>
+                      I grew up around aviation and photography, which naturally shaped the way I see the world today.
+                      My dad works as a pilot, so from an early age I was exposed to flight planning, weather,
+                      navigation, and the unique perspective that comes from seeing Alaska from above.
+                    </p>
 
-                  <p>
-                    I’m currently a homeschooled student taking college courses while building hands-on experience
-                    in aerial media and drone operations. Earning my FAA Part 107 certification at 16 pushed me
-                    to become more self-driven, detail-oriented, and responsible in the way I approach both flying
-                    and client work.
-                  </p>
+                    <p>
+                      At the same time, my mom’s background in photography introduced me to composition, lighting,
+                      storytelling, and the importance of capturing moments in a meaningful way.
+                    </p>
 
-                  <p>
-                    Right now my focus is simple: continue learning, build real-world experience, and create clean,
-                    professional aerial media for businesses, outdoor projects, tourism, and Alaska communities.
-                  </p>
+                    <p>
+                      I’m currently a homeschooled student taking college courses while building hands-on experience
+                      in aerial media and drone operations. Earning my FAA Part 107 certification at 16 pushed me
+                      to become more self-driven, detail-oriented, and responsible in the way I approach both flying
+                      and client work.
+                    </p>
 
-                  <p>
-                    I’m especially interested in opportunities involving aviation, outdoor events, recreation,
-                    tourism, and creative storytelling across Alaska.
-                  </p>
+                    <p>
+                      Right now my focus is simple: continue learning, build real-world experience, and create clean,
+                      professional aerial media for businesses, outdoor projects, tourism, and Alaska communities.
+                    </p>
+
+                    <p>
+                      I’m especially interested in opportunities involving aviation, outdoor events, recreation,
+                      tourism, and creative storytelling across Alaska.
+                    </p>
+                  </div>
                 </div>
 
                 <div className="about-stat-grid">
