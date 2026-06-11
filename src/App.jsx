@@ -28,11 +28,10 @@ const DJI_AIR_3S_URL = "https://www.djiusa.com/products/dji-air-3s-rcn3";
 
 const portfolio = [
   { title: "Sunset Over Alaska", tag: "Cinematic Aerial", image: "/images/sunset.JPG" },
+  { title: "Luxury Real Estate", tag: "Property Showcase", image: "/images/house-hero.JPG" },
   { title: "Red Alaska Sunset", tag: "Cinematic Aerial", image: "/images/sunset-2.JPG" },
   { title: "Alaska Mountain Views", tag: "Scenic Aerial", image: "/images/mountains.JPG" },
   { title: "Moose Wildlife Capture", tag: "Wildlife", image: "/images/moose.JPG" },
-  { title: "Luxury Real Estate", tag: "Property Showcase", image: "/images/house-hero.JPG" },
-  { title: "Mountain Real Estate", tag: "Real Estate", image: "/images/house-2.JPG" }
 ];
 
 const services = [
