@@ -70,7 +70,7 @@ function HeroVideoPanel() {
   return (
     <div className="hero-video-panel">
       <video autoPlay muted loop playsInline preload="auto">
-        <source src="/images/Hero-sunset.mp4" type="video/mp4" />
+        <source src="/images/Hero-sunset.MP4" type="video/mp4" />
       </video>
       <div className="hero-video-shade" />
       <div className="hero-video-label">
