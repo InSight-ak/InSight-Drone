@@ -31,16 +31,17 @@ import {
 } from "lucide-react";
 
 const SMUGMUG_URL = "https://www.smugmug.com/"; // Replace with your SmugMug gallery URL
+const HERO_VIDEO_URL = "/images/Hero-sherp.mp4";
 
 const mediaItems = [
   {
     id: "hero-edit",
-    title: "Alaska Sunset Film",
+    title: "SHERP Alaska Film",
     category: "Finished Edits",
     type: "video",
-    src: "/images/Hero-sunset.MP4",
+    src: HERO_VIDEO_URL,
     poster: "/images/sunset-2.JPG",
-    description: "A short cinematic aerial edit built around Alaska light and landscape.",
+    description: "A commercial SHERP edit captured in the Alaska landscape.",
     featured: true
   },
   {
@@ -263,67 +264,66 @@ function Lightbox({
 
 function HeroVideo() {
   const videoRef = React.useRef(null);
-  const [failed, setFailed] = React.useState(false);
+  const [showPlayButton, setShowPlayButton] = React.useState(false);
 
-  React.useEffect(() => {
+  const startVideo = React.useCallback(async () => {
     const video = videoRef.current;
     if (!video) return;
 
     video.muted = true;
     video.defaultMuted = true;
 
-    const tryPlay = () => {
-      video.play().catch(() => {});
-    };
-
-    tryPlay();
-    video.addEventListener("canplay", tryPlay);
-    return () => video.removeEventListener("canplay", tryPlay);
+    try {
+      await video.play();
+      setShowPlayButton(false);
+    } catch {
+      setShowPlayButton(true);
+    }
   }, []);
+
+  React.useEffect(() => {
+    startVideo();
+  }, [startVideo]);
 
   return (
     <div className="hero-video-frame">
-      {!failed ? (
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="auto"
-          onError={() => setFailed(true)}
-        >
-          <source src="/images/Hero-sunset.MP4" type="video/mp4" />
-        </video>
-      ) : (
-        <div className="hero-video-fallback">
-          <img src="/images/sunset-2.JPG" alt="Alaska sunset aerial view" />
-          <div>
-            <strong>Hero video unavailable</strong>
-            <span>Check that Hero-sunset.MP4 is committed and deployed.</span>
-          </div>
-        </div>
-      )}
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        poster="/images/sunset-2.JPG"
+        onLoadedData={startVideo}
+        onCanPlay={startVideo}
+        onPause={() => {
+          const video = videoRef.current;
+          if (video && !video.ended) setShowPlayButton(true);
+        }}
+        onPlay={() => setShowPlayButton(false)}
+      >
+        <source src={HERO_VIDEO_URL} type="video/mp4" />
+        Your browser does not support HTML5 video.
+      </video>
 
       <div className="hero-video-vignette" />
+
       <div className="hero-video-caption">
-        <span>Featured aerial film</span>
-        <strong>Alaska at golden hour</strong>
+        <span>Featured commercial project</span>
+        <strong>SHERP in the Alaska wild</strong>
       </div>
 
-      <button
-        type="button"
-        className="hero-video-play"
-        onClick={() => {
-          const video = videoRef.current;
-          if (!video) return;
-          video.muted = true;
-          video.play().catch(() => setFailed(true));
-        }}
-        aria-label="Play hero video"
-      >
-        <Play size={17} fill="currentColor" />
-      </button>
+      {showPlayButton && (
+        <button
+          type="button"
+          className="hero-video-play"
+          onClick={startVideo}
+          aria-label="Play SHERP hero video"
+        >
+          <Play size={18} fill="currentColor" />
+        </button>
+      )}
     </div>
   );
 }

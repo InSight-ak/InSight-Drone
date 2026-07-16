@@ -1739,3 +1739,23 @@ footer a {
     bottom: 16px;
   }
 }
+
+
+/* V2.6 SHERP hero */
+.hero-video-frame video {
+  object-position: center center;
+}
+
+.hero-video-caption {
+  max-width: 760px;
+}
+
+.hero-video-play {
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+}
+
+.hero-video-play:hover {
+  transform: scale(1.06);
+  border-color: rgba(217, 201, 170, .45);
+  background: rgba(7, 9, 13, .78);
+}
