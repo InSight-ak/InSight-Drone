@@ -182,10 +182,6 @@ function MediaThumb({ item, onOpen }) {
           </span>
         )}
 
-        <div className="media-copy">
-          <h3>{item.title}</h3>
-          <p>{item.description}</p>
-        </div>
       </div>
     </button>
   );
@@ -283,13 +279,15 @@ export default function App() {
       if (droneOne) {
         const x = progress * (window.innerWidth + 260) - 150;
         const y = Math.sin(progress * 8) * 36;
-        droneOne.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${progress * 260}deg)`;
+        droneOne.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        droneOne.style.setProperty("--drone-rotation", `${progress * 260}deg`);
       }
 
       if (droneTwo) {
         const x = -progress * (window.innerWidth + 280);
         const y = progress * (window.innerHeight + 220);
-        droneTwo.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${-progress * 330}deg) scale(.78)`;
+        droneTwo.style.transform = `translate3d(${x}px, ${y}px, 0) scale(.78)`;
+        droneTwo.style.setProperty("--drone-rotation", `${-progress * 330}deg`);
       }
     };
 
@@ -482,6 +480,18 @@ export default function App() {
 
       <a href={SMUGMUG_URL} target="_blank" rel="noopener noreferrer" className="scroll-drone drone-two" id="scrollDroneTwo" title="View the full InSight gallery" aria-label="Open the full InSight gallery">
         <span>View Gallery</span>
+      </a>
+
+      <a
+        href={SMUGMUG_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mobile-gallery-link"
+        aria-label="Open the full InSight gallery on SmugMug"
+      >
+        <Images size={16} />
+        Full Gallery
+        <ArrowRight size={15} />
       </a>
 
       <header className="site-header">

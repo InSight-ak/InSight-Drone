@@ -1357,3 +1357,96 @@ footer a {
 @media (max-width: 680px) {
   .scroll-drone span { display: none; }
 }
+
+
+/* V2.2 gallery and drone refinements */
+.media-card .media-shade {
+  background:
+    linear-gradient(to top, rgba(4, 7, 11, 0.34), transparent 48%),
+    linear-gradient(to bottom, rgba(4, 7, 11, 0.22), transparent 34%);
+}
+
+.media-card:hover .media-shade {
+  background:
+    linear-gradient(to top, rgba(4, 7, 11, 0.18), transparent 42%),
+    linear-gradient(to bottom, rgba(4, 7, 11, 0.18), transparent 30%);
+}
+
+.media-topline {
+  align-items: flex-start;
+}
+
+.media-category {
+  opacity: 0.86;
+}
+
+.scroll-drone {
+  --drone-rotation: 0deg;
+}
+
+.scroll-drone::before {
+  transform: rotate(var(--drone-rotation));
+  transform-origin: center;
+  transition: transform .08s linear;
+}
+
+.scroll-drone::after {
+  animation: propSpin .36s linear infinite;
+  transform-origin: center;
+}
+
+/* The label belongs to the link, not the rotating drone artwork. */
+.scroll-drone span {
+  top: auto;
+  bottom: -24px;
+  z-index: 3;
+  transform: translateX(-50%) translateY(5px);
+  white-space: nowrap;
+}
+
+.scroll-drone:hover span,
+.scroll-drone:focus-visible span {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.mobile-gallery-link {
+  display: none;
+}
+
+@media (max-width: 680px) {
+  .scroll-drone span {
+    display: block;
+    bottom: -19px;
+    padding: 5px 7px;
+    font-size: 8px;
+    letter-spacing: .08em;
+    opacity: .88;
+    transform: translateX(-50%);
+  }
+
+  .mobile-gallery-link {
+    position: fixed;
+    right: 14px;
+    bottom: 14px;
+    z-index: 90;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid rgba(217, 201, 170, .28);
+    border-radius: 999px;
+    padding: 10px 12px;
+    background: rgba(7, 9, 13, .78);
+    color: white;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: .04em;
+    text-decoration: none;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, .4);
+    backdrop-filter: blur(16px);
+  }
+
+  .mobile-gallery-link svg {
+    color: var(--accent);
+  }
+}
