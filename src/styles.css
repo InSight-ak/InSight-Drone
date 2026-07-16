@@ -1342,7 +1342,9 @@ footer a {
   filter: blur(20px);
   animation: liquidFlow 10s ease-in-out infinite alternate;
 }
-.liquid-glass > * { position: relative; z-index: 1; }
+.liquid-glass > *:not(.hero-overlay) { position: relative; z-index: 1; }
+.liquid-glass .hero-overlay { position: absolute; z-index: 2; }
+.liquid-glass video { position: relative; z-index: 1; }
 @keyframes liquidFlow {
   0% { transform: translate3d(-3%, -2%, 0) rotate(-2deg) scale(1); }
   50% { transform: translate3d(4%, 3%, 0) rotate(3deg) scale(1.04); }
@@ -1448,5 +1450,25 @@ footer a {
 
   .mobile-gallery-link svg {
     color: var(--accent);
+  }
+}
+
+
+/* V2.3 desktop video playback reliability */
+.hero-media video {
+  visibility: visible;
+  opacity: 1;
+  background: #090d12;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.hero-media .hero-overlay {
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .hero-media {
+    will-change: transform;
   }
 }

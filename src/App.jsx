@@ -540,7 +540,18 @@ export default function App() {
               </div>
 
               <Glass className="hero-media liquid-glass interactive-glass" onMouseMove={handleGlassMove} onMouseLeave={resetGlass}>
-                <video autoPlay muted loop playsInline preload="metadata" poster="/images/sunset-2.JPG">
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
+                  poster="/images/sunset-2.JPG"
+                  onCanPlay={(event) => {
+                    event.currentTarget.muted = true;
+                    event.currentTarget.play().catch(() => {});
+                  }}
+                >
                   <source src="/images/Hero-sunset.MP4" type="video/mp4" />
                 </video>
                 <div className="hero-overlay" />
