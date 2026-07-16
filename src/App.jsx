@@ -539,27 +539,31 @@ export default function App() {
                 </div>
               </div>
 
-              <Glass className="hero-media liquid-glass interactive-glass" onMouseMove={handleGlassMove} onMouseLeave={resetGlass}>
-                <video
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                  preload="auto"
-                  poster="/images/sunset-2.JPG"
-                  onCanPlay={(event) => {
-                    event.currentTarget.muted = true;
-                    event.currentTarget.play().catch(() => {});
-                  }}
-                >
-                  <source src="/images/Hero-sunset.MP4" type="video/mp4" />
-                </video>
-                <div className="hero-overlay" />
-                <div className="hero-label">
-                  <span>Featured aerial film</span>
-                  <strong>Alaska at golden hour</strong>
+              <div className="hero-media-shell">
+                <div className="hero-media">
+                  <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    preload="auto"
+                    poster="/images/sunset-2.JPG"
+                    onLoadedData={(event) => {
+                      const video = event.currentTarget;
+                      video.muted = true;
+                      video.defaultMuted = true;
+                      video.play().catch(() => {});
+                    }}
+                  >
+                    <source src="/images/Hero-sunset.MP4" type="video/mp4" />
+                  </video>
+                  <div className="hero-overlay" />
+                  <div className="hero-label">
+                    <span>Featured aerial film</span>
+                    <strong>Alaska at golden hour</strong>
+                  </div>
                 </div>
-              </Glass>
+              </div>
 
               <div className="trust-row">
                 <button onClick={() => changePage("portfolio")}><Aperture /><span>4K aerial media</span></button>
