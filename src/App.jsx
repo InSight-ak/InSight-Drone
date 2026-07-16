@@ -260,6 +260,74 @@ function Lightbox({
   );
 }
 
+
+function HeroVideo() {
+  const videoRef = React.useRef(null);
+  const [failed, setFailed] = React.useState(false);
+
+  React.useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    video.muted = true;
+    video.defaultMuted = true;
+
+    const tryPlay = () => {
+      video.play().catch(() => {});
+    };
+
+    tryPlay();
+    video.addEventListener("canplay", tryPlay);
+    return () => video.removeEventListener("canplay", tryPlay);
+  }, []);
+
+  return (
+    <div className="hero-video-frame">
+      {!failed ? (
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          onError={() => setFailed(true)}
+        >
+          <source src="/images/Hero-sunset.MP4" type="video/mp4" />
+        </video>
+      ) : (
+        <div className="hero-video-fallback">
+          <img src="/images/sunset-2.JPG" alt="Alaska sunset aerial view" />
+          <div>
+            <strong>Hero video unavailable</strong>
+            <span>Check that Hero-sunset.MP4 is committed and deployed.</span>
+          </div>
+        </div>
+      )}
+
+      <div className="hero-video-vignette" />
+      <div className="hero-video-caption">
+        <span>Featured aerial film</span>
+        <strong>Alaska at golden hour</strong>
+      </div>
+
+      <button
+        type="button"
+        className="hero-video-play"
+        onClick={() => {
+          const video = videoRef.current;
+          if (!video) return;
+          video.muted = true;
+          video.play().catch(() => setFailed(true));
+        }}
+        aria-label="Play hero video"
+      >
+        <Play size={17} fill="currentColor" />
+      </button>
+    </div>
+  );
+}
+
 export default function App() {
   const [page, setPage] = React.useState("home");
   const [menuOpen, setMenuOpen] = React.useState(false);
@@ -540,29 +608,7 @@ export default function App() {
               </div>
 
               <div className="hero-media-shell">
-                <div className="hero-media">
-                  <video
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    poster="/images/sunset-2.JPG"
-                    onLoadedData={(event) => {
-                      const video = event.currentTarget;
-                      video.muted = true;
-                      video.defaultMuted = true;
-                      video.play().catch(() => {});
-                    }}
-                  >
-                    <source src="/images/Hero-sunset.MP4" type="video/mp4" />
-                  </video>
-                  <div className="hero-overlay" />
-                  <div className="hero-label">
-                    <span>Featured aerial film</span>
-                    <strong>Alaska at golden hour</strong>
-                  </div>
-                </div>
+                <HeroVideo />
               </div>
 
               <div className="trust-row">
