@@ -30,7 +30,7 @@ import {
   X
 } from "lucide-react";
 
-const SMUGMUG_URL = "https://www.smugmug.com/"; // Replace with your SmugMug gallery URL
+const SMUGMUG_URL = "https://www.joselynnfinchphotography.com/InSightDroneFlights";
 const HERO_VIDEO_URL = "/images/Hero-sherp.mp4";
 
 const mediaItems = [
