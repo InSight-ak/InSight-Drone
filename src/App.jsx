@@ -30,7 +30,7 @@ import {
   X
 } from "lucide-react";
 
-const DJI_AIR_3S_URL = "https://www.djiusa.com/products/dji-air-3s-rcn3";
+const SMUGMUG_URL = "https://www.smugmug.com/"; // Replace with your SmugMug gallery URL
 
 const mediaItems = [
   {
@@ -115,8 +115,8 @@ const focusAreas = [
   { icon: Route, title: "Site Context", text: "Useful aerial layout views for projects and locations." }
 ];
 
-function Glass({ children, className = "" }) {
-  return <div className={`glass ${className}`}>{children}</div>;
+function Glass({ children, className = "", ...props }) {
+  return <div className={`glass ${className}`} {...props}>{children}</div>;
 }
 
 function MediaThumb({ item, onOpen }) {
@@ -272,6 +272,37 @@ export default function App() {
   const [slideDirection, setSlideDirection] = React.useState("next");
   const [isAnimating, setIsAnimating] = React.useState(false);
 
+  React.useEffect(() => {
+    const droneOne = document.getElementById("scrollDroneOne");
+    const droneTwo = document.getElementById("scrollDroneTwo");
+
+    const updateDrones = () => {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = maxScroll > 0 ? window.scrollY / maxScroll : 0;
+
+      if (droneOne) {
+        const x = progress * (window.innerWidth + 260) - 150;
+        const y = Math.sin(progress * 8) * 36;
+        droneOne.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${progress * 260}deg)`;
+      }
+
+      if (droneTwo) {
+        const x = -progress * (window.innerWidth + 280);
+        const y = progress * (window.innerHeight + 220);
+        droneTwo.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${-progress * 330}deg) scale(.78)`;
+      }
+    };
+
+    window.addEventListener("scroll", updateDrones, { passive: true });
+    window.addEventListener("resize", updateDrones);
+    updateDrones();
+
+    return () => {
+      window.removeEventListener("scroll", updateDrones);
+      window.removeEventListener("resize", updateDrones);
+    };
+  }, []);
+
   const filteredMedia = React.useMemo(
     () => activeFilter === "All"
       ? mediaItems
@@ -365,6 +396,26 @@ export default function App() {
     };
   }, [moveLightbox, selectedItem]);
 
+  const handleGlassMove = (event) => {
+    const card = event.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+
+    card.style.setProperty("--tilt-x", `${(0.5 - y) * 8}deg`);
+    card.style.setProperty("--tilt-y", `${(x - 0.5) * 8}deg`);
+    card.style.setProperty("--glow-x", `${x * 100}%`);
+    card.style.setProperty("--glow-y", `${y * 100}%`);
+  };
+
+  const resetGlass = (event) => {
+    const card = event.currentTarget;
+    card.style.setProperty("--tilt-x", "0deg");
+    card.style.setProperty("--tilt-y", "0deg");
+    card.style.setProperty("--glow-x", "50%");
+    card.style.setProperty("--glow-y", "50%");
+  };
+
   const NavLinks = () => (
     <>
       <button className={page === "home" ? "active" : ""} onClick={() => changePage("home")}>Home</button>
@@ -420,8 +471,18 @@ export default function App() {
 
   return (
     <div className="site-shell">
+      <div className="scroll-stars" />
       <div className="ambient ambient-one" />
       <div className="ambient ambient-two" />
+      <div className="ambient ambient-three" />
+
+      <a href={SMUGMUG_URL} target="_blank" rel="noopener noreferrer" className="scroll-drone drone-one" id="scrollDroneOne" title="View the full InSight gallery" aria-label="Open the full InSight gallery">
+        <span>View Gallery</span>
+      </a>
+
+      <a href={SMUGMUG_URL} target="_blank" rel="noopener noreferrer" className="scroll-drone drone-two" id="scrollDroneTwo" title="View the full InSight gallery" aria-label="Open the full InSight gallery">
+        <span>View Gallery</span>
+      </a>
 
       <header className="site-header">
         <div className="nav-wrap">
@@ -468,7 +529,7 @@ export default function App() {
                 </div>
               </div>
 
-              <Glass className="hero-media">
+              <Glass className="hero-media liquid-glass interactive-glass" onMouseMove={handleGlassMove} onMouseLeave={resetGlass}>
                 <video autoPlay muted loop playsInline preload="metadata" poster="/images/sunset-2.JPG">
                   <source src="/images/Hero-sunset.MP4" type="video/mp4" />
                 </video>
@@ -495,7 +556,7 @@ export default function App() {
                 <p>Built for real projects—not just pretty aerial shots.</p>
               </div>
 
-              <Glass className="focus-grid">
+              <Glass className="focus-grid liquid-glass">
                 {focusAreas.map(({ icon: Icon, title, text }) => (
                   <button key={title} onClick={title.includes("Property") || title.includes("Tourism") ? () => changePage("portfolio") : goToContact}>
                     <span className="icon-box"><Icon /></span>
@@ -514,13 +575,13 @@ export default function App() {
               </div>
 
               <div className="credibility-grid">
-                <Glass className="cert-card">
+                <Glass className="cert-card interactive-glass" onMouseMove={handleGlassMove} onMouseLeave={resetGlass}>
                   <FileCheck size={52} />
                   <h3>FAA Part 107 Certified</h3>
                   <p>Commercial drone work completed with legal, safety-minded flight planning.</p>
                 </Glass>
 
-                <Glass className="credential-list">
+                <Glass className="credential-list interactive-glass" onMouseMove={handleGlassMove} onMouseLeave={resetGlass}>
                   <p><BadgeCheck /> FAA Part 107 Certified</p>
                   <p><Plane /> DJI Air 3S Operator</p>
                   <p><MapPin /> Alaska-based service</p>
@@ -530,7 +591,7 @@ export default function App() {
             </section>
 
             <section id="contact" className="section contact-section">
-              <Glass className="contact-panel">
+              <Glass className="contact-panel liquid-glass">
                 <div>
                   <span className="kicker">Contact</span>
                   <h2>Ready to plan a flight?</h2>
@@ -576,7 +637,7 @@ export default function App() {
 
             <div className="service-grid">
               {services.map(({ icon: Icon, title, text, action }) => (
-                <Glass key={title} className="service-card">
+                <Glass key={title} className="service-card interactive-glass" onMouseMove={handleGlassMove} onMouseLeave={resetGlass}>
                   <span className="icon-box"><Icon /></span>
                   <h3>{title}</h3>
                   <p>{text}</p>
@@ -591,7 +652,7 @@ export default function App() {
 
         {page === "about" && (
           <section className="section page-section">
-            <Glass className="about-layout">
+            <Glass className="about-layout liquid-glass">
               <div className="about-image">
                 <img src="/images/about-drone.png" alt="Drone pilot in Alaska" />
               </div>
@@ -627,8 +688,8 @@ export default function App() {
           <strong>InSight Drone Flights</strong>
           <span>© 2026 • insightdroneflights.com</span>
         </div>
-        <a href={DJI_AIR_3S_URL} target="_blank" rel="noopener noreferrer">
-          Flying DJI Air 3S
+        <a href={SMUGMUG_URL} target="_blank" rel="noopener noreferrer">
+          View full gallery
         </a>
       </footer>
 

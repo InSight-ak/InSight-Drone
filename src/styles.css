@@ -1209,3 +1209,151 @@ footer a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* InSight V2 identity restoration */
+.ambient-three { left: 42%; bottom: -170px; background: rgba(63,82,94,.22); }
+
+.scroll-stars { position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .34; }
+.scroll-stars::before, .scroll-stars::after { content: ""; position: absolute; inset: 0; }
+.scroll-stars::before {
+  background:
+    radial-gradient(circle at 8% 12%, rgba(255,255,255,.82) 0 1.3px, transparent 3.2px),
+    radial-gradient(circle at 22% 68%, rgba(217,201,170,.74) 0 1.5px, transparent 3.4px),
+    radial-gradient(circle at 37% 24%, rgba(255,255,255,.62) 0 1.2px, transparent 3px),
+    radial-gradient(circle at 58% 15%, rgba(255,255,255,.7) 0 1.5px, transparent 3.6px),
+    radial-gradient(circle at 74% 44%, rgba(217,201,170,.66) 0 1.3px, transparent 3.2px),
+    radial-gradient(circle at 88% 26%, rgba(255,255,255,.72) 0 1.3px, transparent 3.2px),
+    radial-gradient(circle at 14% 86%, rgba(217,201,170,.58) 0 1.2px, transparent 3px),
+    radial-gradient(circle at 63% 79%, rgba(255,255,255,.64) 0 1.4px, transparent 3.3px);
+}
+.scroll-stars::after {
+  background:
+    linear-gradient(transparent 48%, rgba(255,255,255,.34) 50%, transparent 52%),
+    linear-gradient(90deg, transparent 48%, rgba(255,255,255,.34) 50%, transparent 52%),
+    linear-gradient(transparent 48%, rgba(217,201,170,.26) 50%, transparent 52%),
+    linear-gradient(90deg, transparent 48%, rgba(217,201,170,.26) 50%, transparent 52%);
+  background-size: 290px 290px, 290px 290px, 470px 470px, 470px 470px;
+  background-position: 130px 90px, 130px 90px, 540px 260px, 540px 260px;
+  opacity: .28;
+  animation: starPulse 5.4s ease-in-out infinite alternate;
+}
+@keyframes starPulse {
+  from { opacity: .16; filter: brightness(.85); }
+  50% { opacity: .38; filter: brightness(1.35); }
+  to { opacity: .23; filter: brightness(1); }
+}
+
+.scroll-drone {
+  position: fixed;
+  z-index: 80;
+  display: block;
+  width: 110px;
+  height: 110px;
+  pointer-events: auto;
+  cursor: pointer;
+  transition: transform .08s linear, filter .2s ease;
+  filter: drop-shadow(0 18px 36px rgba(0,0,0,.5)) drop-shadow(0 0 22px rgba(217,201,170,.2));
+}
+.scroll-drone:hover {
+  filter: drop-shadow(0 22px 42px rgba(0,0,0,.56)) drop-shadow(0 0 30px rgba(217,201,170,.42));
+}
+.drone-one { top: 20%; left: -150px; }
+.drone-two { top: -130px; right: -130px; opacity: .7; }
+
+.scroll-drone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cg fill='none' stroke='%23d9c9aa' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='45' cy='45' r='18'/%3E%3Ccircle cx='155' cy='45' r='18'/%3E%3Ccircle cx='45' cy='155' r='18'/%3E%3Ccircle cx='155' cy='155' r='18'/%3E%3Cline x1='60' y1='60' x2='88' y2='88'/%3E%3Cline x1='140' y1='60' x2='112' y2='88'/%3E%3Cline x1='60' y1='140' x2='88' y2='112'/%3E%3Cline x1='140' y1='140' x2='112' y2='112'/%3E%3Crect x='78' y='78' width='44' height='44' rx='10'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.scroll-drone::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  background:
+    radial-gradient(circle at 22% 22%, rgba(217,201,170,.95) 0 3px, transparent 4px),
+    radial-gradient(circle at 78% 22%, rgba(217,201,170,.95) 0 3px, transparent 4px),
+    radial-gradient(circle at 22% 78%, rgba(217,201,170,.95) 0 3px, transparent 4px),
+    radial-gradient(circle at 78% 78%, rgba(217,201,170,.95) 0 3px, transparent 4px);
+  animation: propSpin .36s linear infinite;
+}
+.scroll-drone span {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 4px);
+  width: max-content;
+  transform: translateX(-50%) translateY(6px);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 999px;
+  padding: 6px 9px;
+  background: rgba(7,9,13,.72);
+  color: white;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity .18s ease, transform .18s ease;
+  backdrop-filter: blur(14px);
+}
+.scroll-drone:hover span { opacity: 1; transform: translateX(-50%) translateY(0); }
+@keyframes propSpin { to { transform: rotate(360deg); } }
+
+.interactive-glass {
+  --tilt-x: 0deg;
+  --tilt-y: 0deg;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  transform: perspective(1200px) rotateX(var(--tilt-x)) rotateY(var(--tilt-y));
+  transform-style: preserve-3d;
+  transition: transform .18s ease, border-color .22s ease, box-shadow .22s ease;
+}
+.interactive-glass:hover {
+  border-color: rgba(217,201,170,.26);
+  box-shadow: 0 34px 100px rgba(0,0,0,.48), 0 0 0 1px rgba(255,255,255,.025) inset;
+}
+.interactive-glass::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  pointer-events: none;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at var(--glow-x) var(--glow-y), rgba(255,255,255,.18), transparent 24%),
+    linear-gradient(115deg, transparent 20%, rgba(255,255,255,.06) 42%, transparent 64%);
+  opacity: .54;
+  mix-blend-mode: screen;
+}
+
+.liquid-glass { isolation: isolate; }
+.liquid-glass::after {
+  content: "";
+  position: absolute;
+  inset: -35%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 25% 35%, rgba(255,255,255,.12), transparent 26%),
+    radial-gradient(circle at 74% 62%, rgba(126,166,178,.1), transparent 28%),
+    radial-gradient(circle at 54% 20%, rgba(217,201,170,.08), transparent 24%);
+  filter: blur(20px);
+  animation: liquidFlow 10s ease-in-out infinite alternate;
+}
+.liquid-glass > * { position: relative; z-index: 1; }
+@keyframes liquidFlow {
+  0% { transform: translate3d(-3%, -2%, 0) rotate(-2deg) scale(1); }
+  50% { transform: translate3d(4%, 3%, 0) rotate(3deg) scale(1.04); }
+  100% { transform: translate3d(-1%, 5%, 0) rotate(-1deg) scale(1.02); }
+}
+
+@media (max-width: 980px) {
+  .scroll-drone { width: 76px; height: 76px; }
+  .drone-one { top: 72%; left: -90px; }
+  .drone-two { top: 18%; right: -90px; }
+}
+@media (max-width: 680px) {
+  .scroll-drone span { display: none; }
+}
